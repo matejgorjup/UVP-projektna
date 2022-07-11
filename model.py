@@ -1,12 +1,13 @@
 from datetime import date
 import json
 
-#class Uporabnik:
-#    def __init__(self, mid, geslo, stanje):
-#        self.mid = mid
-#        self.geslo = geslo
-#        self.stanje = stanje
-#    
+class Uporabnik:
+    def __init__(self, mid, geslo, stanje):
+        self.mid = int(mid)
+        self.geslo = geslo
+        self.register = []
+        self.stanje = stanje
+    
 #    @staticmethod
 #    def registracija(mid, geslo):
 #        if Uporabnik.iz_datoteke(mid) is not None:
@@ -34,6 +35,7 @@ import json
 #        return {
 #            "mid": self.mid,
 #            "geslo": self.geslo,
+#            "register": self.register
 #            "stanje": self.stanje.v_slovar()
 #        }
 #
@@ -55,34 +57,87 @@ import json
 #                return Uporabnik.iz_slovarja(slovar)
 #        except FileNotFoundError:
 #            return None
-#
 
-class Govedo:
-    def __init__(self, id, datum_rojstva, spol, pasma, datum_prihoda, datum_odhoda):
+    def prihod_zivali(self, zival):
+        self.register.append(zival)
+
+#    def preveri_prihod(self, zival):
+#        for glava in self.lastnistvo:
+#            if glava.id == zival.id:
+#                return f"Vnos {glava.id} že obstaja v registru!"
+#
+#    def odhod_zivali(zival):
+
+###############################################################################################################
+
+class Zival:
+    def __init__(self, id, ime, datum_rojstva, spol, pasma, datum_prihoda):
         self.id = id
+        self.ime = ime
         self.rojstvo = datum_rojstva
         self.spol = spol
         self.pasma = pasma
         self.datum_prihoda = datum_prihoda
-        self.datum_odhoda = datum_odhoda
+#        self.datum_odhoda = datum_odhoda
 
-    def odhod(self, datum):
-        """Odjavi žival iz registra"""
-        self.datum_odhoda = datum    
+#    def odhod(self, datum):
+#        """Odjavi žival iz registra"""
+#        self.datum_odhoda = datum    
+    def __repr__(self):
+        return f"Žival({self.ime, self.id})"
 
-class Čreda:
+###############################################################################################################
+
+class Lokacija:
     def __init__(self, ime):
         self.ime = ime
         self.zivali = []
+        self.stevilo = len(self.zivali)
 
-    def druga_lokacija(self, ime):
-        """Premakne celo čredo na drugo lokacijo"""
-        self.ime = ime
-    
     def dodaj_zival(self, zival):
         """Doda žival v čredo"""
         self.zivali.append(zival)
 
-    def stevilo_zivali(self):
-        """Vrne število živali v čredi"""
-        return len(self.zivali)
+    def odstrani_zival(self, zival):
+        """Odstrani žival iz črede"""
+        self.zivali.remove(zival)
+
+    def __repr__(self):
+        return f"Lokacija({self.ime})"
+
+def druga_lokacija(lok1, lok2):
+    """Premakne celo čredo na drugo lokacijo"""
+    for glava in lok1.zivali:
+        lok2.dodaj_zival(glava)
+        lok1.odstrani_zival(glava)
+
+###############################################################################################################
+
+class Delavec:
+    def __init__(self, ime):
+        self.ime = ime
+        self.ure = []
+
+###############################################################################################################
+
+class Dobrina:
+    def __init__(self, tip, kolicina):
+        self.tip = tip
+        self.kolicina = kolicina
+
+
+
+Matej = Uporabnik(100475958, None, None)
+Ciko = Zival("SI12341234", "Ciko", "23-12-2018", "M", "LIM", "23-12-2018") 
+Belka = Zival("SI12341237", "Belka", "23-12-2018", "Ž", "LIM", "23-12-2018") 
+Lina = Zival("SI36925814", "Lina", "23-12-2018", "Ž", "LIM", "23-12-2018") 
+Brezovca = Lokacija("Brezovca")
+Stala = Lokacija("Stala")
+
+Matej.prihod_zivali(Belka)
+Matej.prihod_zivali(Ciko)
+Matej.prihod_zivali(Lina)
+
+Brezovca.dodaj_zival(Belka)
+Brezovca.dodaj_zival(Ciko)
+Stala.dodaj_zival(Lina)
