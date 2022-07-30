@@ -1,6 +1,7 @@
 import datetime
 from datetime import date
 import json
+import pandas
 
 class Gospodarstvo:
     def __init__(self, mid, geslo):
@@ -51,9 +52,8 @@ class Gospodarstvo:
         gospodarstvo = Gospodarstvo(mid, geslo)
         gospodarstvo.register = [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["register"]]
         gospodarstvo.lokacije = [Lokacija.iz_slovarja(lokacija_sl) for lokacija_sl in slovar["lokacije"]]
-        #gospodarstvo.delovna_sila = 
-        #gospodarstvo.dobrine = 
-        gospodarstvo.delovna_sila = []
+        gospodarstvo.delovna_sila = [Delavec.iz_slovarja(delavec_sl) for delavec_sl in slovar["delovna_sila"]]
+        #gospodarstvo.dobrine = [Delavec.iz_slovarja(delavec_sl) for delavec_sl in slovar["delovna_sila"]]
         gospodarstvo.dobrine = []
         return Gospodarstvo(mid, geslo)
 
@@ -74,13 +74,13 @@ class Gospodarstvo:
 
     def prihod_zivali(self, zival):
         if zival in self.register:
-            raise ValueError(f"Vnos {zival.id} je že v registru!")
+            raise ValueError(f"dodaj_delovni_dan {zival.id} je že v registru!")
         else:
             self.register.append(zival)
 
     def odhod_zivali(self, zival):
         if zival not in self.register:
-            raise ValueError(f"Vnos {zival.id} v registru ne obstaja!")
+            raise ValueError(f"dodaj_delovni_dan {zival.id} v registru ne obstaja!")
         else:
             self.register.remove(zival)
 
@@ -95,6 +95,9 @@ class Gospodarstvo:
             raise ValueError("Lokacija ne obstaja!")
         else:
             self.lokacije.remove(lokacija)
+
+    def dodaj_delavca(self, delavec):
+        self.delovna_sila.append(delavec)
 
 
 
@@ -197,22 +200,73 @@ class Delavec:
         self.ime = ime
         self.ure = []
     
-    def vnos(self, datum, st_ur_kmetijstvo, st_ur_gozdarstvo):
-        tuple = (datum, st_ur_kmetijstvo, st_ur_gozdarstvo)
-        self.ure.append(tuple)
+    def dodaj_delovni_dan(self, datum, ure_kmet, ure_gozd):
+        self.ure.append(DelovniDan(datum, ure_kmet, ure_gozd))
+
+    def v_slovar(self):
+        return {
+            "ime": self.ime,
+            "ure": [delovni_dan.v_slovar() for delovni_dan in self.ure]
+    }
+    
+    @staticmethod
+    def iz_slovarja(slovar):
+        return Delavec(
+            slovar["ime"],
+            [DelovniDan.iz_slovarja(dan_sl) for dan_sl in slovar["ure"]]
+        )
+
+    def povzetek_ur(self, zacetni_datum, koncni_datum):
+        """Izračuna število posameznih ur od zacetni_datum do koncni_datum (brez njega)"""
+        sum_kmet = 0
+        sum_gozd = 0
+        for dan in self.ure:
+            if dan.datum in [zacetni_datum + datetime.timedelta(n) for n in range(int ((koncni_datum - zacetni_datum).days))]:
+                sum_kmet += dan.kmetijstvo
+                sum_gozd += dan.gozdarstvo
+        return (sum_kmet, sum_gozd)
+    #zelo neučinkovito
+
+class DelovniDan:
+    def __init__(self, datum, ure_kmet, ure_gozd):
+        self.datum = datum
+        self.kmetijstvo = ure_kmet
+        self.gozdarstvo = ure_gozd
+    
+    def v_slovar(self):
+        return {
+            "datum": self.datum.isoformat() if self.datum else None,
+            "kmetijstvo": self.kmetijstvo,
+            "gozdarstvo": self.gozdarstvo
+        }
+    
+    @staticmethod
+    def iz_slovarja(slovar):
+        return DelovniDan(
+            slovar["datum"],
+            slovar["kmetijstvo"],
+            slovar["gozdarstvo"]
+        )
+
 
 ###############################################################################################################
 
 class Dobrina:
-    def __init__(self, tip, kolicina):
+    def __init__(self, tip, enote):
         self.tip = tip
-        self.kolicina = kolicina
-    
+        self.kolicina = 0
+        self.enote = enote
+
+    def dodaj(self, kolicina):
+        self.kolicina += kolicina
+
+###############################################################################################################
 
 class Finance:
     pass
 
 
+## Bi delal s subclassi??? ##
 
 ### PRIMER ###
 
@@ -238,12 +292,23 @@ Stala.dodaj_zival(Lina)
 Robert = Delavec("Robert")
 Dantes = Delavec("Dantes")
 
-Robert.vnos(20220723, 7, 0)
-Robert.vnos(20220724, 2, 1)
-Robert.vnos(20220725, 5, 0)
-Robert.vnos(20220726, 6, 0)
-Robert.vnos(20220727, 2, 0)
-Robert.vnos(20220728, 5, 0)
+Hlipink.dodaj_delavca(Robert)
+Hlipink.dodaj_delavca(Dantes)
 
+Robert.dodaj_delovni_dan(datetime.date(2022, 7, 23), 7, 0)
+Robert.dodaj_delovni_dan(datetime.date(2022, 7, 24), 2, 1)
+Robert.dodaj_delovni_dan(datetime.date(2022, 7, 25), 5, 0)
+Robert.dodaj_delovni_dan(datetime.date(2022, 7, 26), 6, 0)
+Robert.dodaj_delovni_dan(datetime.date(2022, 7, 27), 2, 0)
+Robert.dodaj_delovni_dan(datetime.date(2022, 7, 28), 5, 0)
+
+Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 23), 8, 2)
+Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 24), 3, 1)
+Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 25), 0, 0)
+Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 26), 8, 1)
+Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 27), 2, 0)
+Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 28), 3, 1)
+
+#Dantes.povzetek_ur(datetime.date(2022, 7, 23), datetime.date(2022, 7, 28))
 
 Hlipink.v_datoteko("test")
