@@ -1,6 +1,7 @@
 import datetime
 from datetime import date
 import json
+from xml.dom.xmlbuilder import DOMBuilder
 import pandas
 
 class Gospodarstvo:
@@ -42,7 +43,7 @@ class Gospodarstvo:
             "register": [zival.v_slovar() for zival in self.register],
             "lokacije": [lokacija.v_slovar() for lokacija in self.lokacije],
             "delovna_sila": [delavec.v_slovar() for delavec in self.delovna_sila],
-            "dobrine": self.dobrine
+            "dobrine": [dobrina.v_slovar() for dobrina in self.dobrine]
     }
  
     @staticmethod
@@ -53,8 +54,7 @@ class Gospodarstvo:
         gospodarstvo.register = [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["register"]]
         gospodarstvo.lokacije = [Lokacija.iz_slovarja(lokacija_sl) for lokacija_sl in slovar["lokacije"]]
         gospodarstvo.delovna_sila = [Delavec.iz_slovarja(delavec_sl) for delavec_sl in slovar["delovna_sila"]]
-        #gospodarstvo.dobrine = [Delavec.iz_slovarja(delavec_sl) for delavec_sl in slovar["delovna_sila"]]
-        gospodarstvo.dobrine = []
+        gospodarstvo.dobrine = [Dobrina.iz_slovarja(dobrina_sl) for dobrina_sl in slovar["dobrine"]]
         return Gospodarstvo(mid, geslo)
 
     def v_datoteko(self, ime):
@@ -99,8 +99,8 @@ class Gospodarstvo:
     def dodaj_delavca(self, delavec):
         self.delovna_sila.append(delavec)
 
-
-
+    def dodaj_dobrino(self, dobrina):
+        self.dobrine.append(dobrina)
 
 ###############################################################################################################
 
@@ -248,7 +248,6 @@ class DelovniDan:
             slovar["gozdarstvo"]
         )
 
-
 ###############################################################################################################
 
 class Dobrina:
@@ -260,6 +259,22 @@ class Dobrina:
     def dodaj(self, kolicina):
         self.kolicina += kolicina
 
+    def v_slovar(self):
+        return {
+            "tip": self.tip,
+            "kolicina": self.kolicina,
+            "enote": self.enote
+        }
+
+    @staticmethod
+    def iz_slovarja(slovar):
+        dobrina = Dobrina(
+            slovar["tip"],
+            slovar["enote"]
+        )
+        dobrina.kolicina = slovar["kolicina"]
+        return dobrina
+
 ###############################################################################################################
 
 class Finance:
@@ -270,45 +285,3 @@ class Finance:
 
 ### PRIMER ###
 
-Hlipink = Gospodarstvo(100475958, None)
-Ciko = Zival("SI12341234", "Ciko", datetime.date(2018, 12, 23), "M", "LIM", datetime.date(2018, 12, 23), None, None) 
-Belka = Zival("SI12341237", "Belka", datetime.date(2018, 12, 23), "Ž", "LIM", datetime.date(2018, 12, 23), None, None) 
-Lina = Zival("SI36925814", "Lina", datetime.date(2021, 12, 23), "Ž", "LIM", datetime.date(2021, 12, 23), Belka.id, Ciko.id) 
-
-Brezovca = Lokacija("Brezovca", 123)
-Stala = Lokacija("Stala", 3)
-
-Hlipink.prihod_zivali(Belka)
-Hlipink.prihod_zivali(Ciko)
-Hlipink.prihod_zivali(Lina)
-
-Hlipink.dodaj_lokacijo(Brezovca)
-Hlipink.dodaj_lokacijo(Stala)
-
-Brezovca.dodaj_zival(Belka)
-Brezovca.dodaj_zival(Ciko)
-Stala.dodaj_zival(Lina)
-
-Robert = Delavec("Robert")
-Dantes = Delavec("Dantes")
-
-Hlipink.dodaj_delavca(Robert)
-Hlipink.dodaj_delavca(Dantes)
-
-Robert.dodaj_delovni_dan(datetime.date(2022, 7, 23), 7, 0)
-Robert.dodaj_delovni_dan(datetime.date(2022, 7, 24), 2, 1)
-Robert.dodaj_delovni_dan(datetime.date(2022, 7, 25), 5, 0)
-Robert.dodaj_delovni_dan(datetime.date(2022, 7, 26), 6, 0)
-Robert.dodaj_delovni_dan(datetime.date(2022, 7, 27), 2, 0)
-Robert.dodaj_delovni_dan(datetime.date(2022, 7, 28), 5, 0)
-
-Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 23), 8, 2)
-Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 24), 3, 1)
-Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 25), 0, 0)
-Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 26), 8, 1)
-Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 27), 2, 0)
-Dantes.dodaj_delovni_dan(datetime.date(2022, 7, 28), 3, 1)
-
-#Dantes.povzetek_ur(datetime.date(2022, 7, 23), datetime.date(2022, 7, 28))
-
-Hlipink.v_datoteko("test")
