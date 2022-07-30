@@ -1,0 +1,175 @@
+{
+    "mid": 100475958,
+    "geslo": null,
+    "register": [
+        {
+            "id": "SI12341237",
+            "ime": "Belka",
+            "rojstvo": "2018-12-23",
+            "spol": "Ž",
+            "pasma": "LIM",
+            "mati": null,
+            "oce": null,
+            "datum_prihoda": "2018-12-23",
+            "datum_odhoda": null
+        },
+        {
+            "id": "SI12341234",
+            "ime": "Ciko",
+            "rojstvo": "2018-12-23",
+            "spol": "M",
+            "pasma": "LIM",
+            "mati": null,
+            "oce": null,
+            "datum_prihoda": "2018-12-23",
+            "datum_odhoda": null
+        },
+        {
+            "id": "SI36925814",
+            "ime": "Lina",
+            "rojstvo": "2021-12-23",
+            "spol": "Ž",
+            "pasma": "LIM",
+            "mati": "SI12341237",
+            "oce": "SI12341234",
+            "datum_prihoda": "2021-12-23",
+            "datum_odhoda": null
+        }
+    ],
+    "lokacije": [
+        {
+            "ime": "Brezovca",
+            "povrsina": 123,
+            "zivali": [
+                {
+                    "id": "SI36925814",
+                    "ime": "Lina",
+                    "rojstvo": "2021-12-23",
+                    "spol": "Ž",
+                    "pasma": "LIM",
+                    "mati": "SI12341237",
+                    "oce": "SI12341234",
+                    "datum_prihoda": "2021-12-23",
+                    "datum_odhoda": null
+                },
+                {
+                    "id": "SI12341234",
+                    "ime": "Ciko",
+                    "rojstvo": "2018-12-23",
+                    "spol": "M",
+                    "pasma": "LIM",
+                    "mati": null,
+                    "oce": null,
+                    "datum_prihoda": "2018-12-23",
+                    "datum_odhoda": null
+                }
+            ]
+        },
+        {
+            "ime": "Stala",
+            "povrsina": 3,
+            "zivali": [
+                {
+                    "id": "SI12341237",
+                    "ime": "Belka",
+                    "rojstvo": "2018-12-23",
+                    "spol": "Ž",
+                    "pasma": "LIM",
+                    "mati": null,
+                    "oce": null,
+                    "datum_prihoda": "2018-12-23",
+                    "datum_odhoda": null
+                }
+            ]
+        }
+    ],
+    "delovna_sila": [
+        {
+            "ime": "Robert",
+            "ure": [
+                {
+                    "datum": "2022-07-23",
+                    "kmetijstvo": 7,
+                    "gozdarstvo": 0
+                },
+                {
+                    "datum": "2022-07-24",
+                    "kmetijstvo": 2,
+                    "gozdarstvo": 1
+                },
+                {
+                    "datum": "2022-07-25",
+                    "kmetijstvo": 5,
+                    "gozdarstvo": 0
+                },
+                {
+                    "datum": "2022-07-26",
+                    "kmetijstvo": 6,
+                    "gozdarstvo": 0
+                },
+                {
+                    "datum": "2022-07-27",
+                    "kmetijstvo": 2,
+                    "gozdarstvo": 0
+                },
+                {
+                    "datum": "2022-07-28",
+                    "kmetijstvo": 5,
+                    "gozdarstvo": 0
+                }
+            ]
+        },
+        {
+            "ime": "Dantes",
+            "ure": [
+                {
+                    "datum": "2022-07-23",
+                    "kmetijstvo": 8,
+                    "gozdarstvo": 2
+                },
+                {
+                    "datum": "2022-07-24",
+                    "kmetijstvo": 3,
+                    "gozdarstvo": 1
+                },
+                {
+                    "datum": "2022-07-25",
+                    "kmetijstvo": 0,
+                    "gozdarstvo": 0
+                },
+                {
+                    "datum": "2022-07-26",
+                    "kmetijstvo": 8,
+                    "gozdarstvo": 1
+                },
+                {
+                    "datum": "2022-07-27",
+                    "kmetijstvo": 2,
+                    "gozdarstvo": 0
+                },
+                {
+                    "datum": "2022-07-28",
+                    "kmetijstvo": 3,
+                    "gozdarstvo": 1
+                }
+            ]
+        }
+    ],
+    "dobrine": [
+        {
+            "tip": "gnoj",
+            "kolicina": 45,
+            "enote": "m3"
+        },
+        {
+            "tip": "bale",
+            "kolicina": 105,
+            "enote": "kos"
+        },
+        {
+            "tip": "drva",
+            "kolicina": 205,
+            "enote": "m3"
+        }
+    ]
+}
