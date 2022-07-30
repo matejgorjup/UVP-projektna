@@ -53,6 +53,8 @@ class Gospodarstvo:
         gospodarstvo.lokacije = [Lokacija.iz_slovarja(lokacija_sl) for lokacija_sl in slovar["lokacije"]]
         #gospodarstvo.delovna_sila = 
         #gospodarstvo.dobrine = 
+        gospodarstvo.delovna_sila = []
+        gospodarstvo.dobrine = []
         return Gospodarstvo(mid, geslo)
 
     def v_datoteko(self, ime):
@@ -133,7 +135,7 @@ class Zival:
 
     @staticmethod
     def iz_slovarja(slovar):
-        return Zival(
+        zival = Zival(
             slovar["id"],
             slovar["ime"],
             slovar["rojstvo"],
@@ -141,9 +143,10 @@ class Zival:
             slovar["pasma"],
             slovar["mati"],
             slovar["oce"],
-            slovar["datum_prihoda"],
-            date.fromisoformat(slovar["datum_odhoda"]) if slovar["datum_odhoda"] else None
+            slovar["datum_prihoda"]
         )
+        zival.datum_odhoda = date.fromisoformat(slovar["datum_odhoda"]) if slovar["datum_odhoda"] else None
+        return zival 
 
 ###############################################################################################################
 
@@ -174,19 +177,18 @@ class Lokacija:
     
     @staticmethod
     def iz_slovarja(slovar):
-        return Lokacija(
+        lokacija = Lokacija(
             slovar["ime"],
-            slovar["povrsina"],
-            [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["zivali"]]
+            slovar["povrsina"]
         )
+        lokacija.zivali = [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["zivali"]]
+        return lokacija
 
 def druga_lokacija(lok1, lok2):
     """Premakne celo čredo na drugo lokacijo"""
     for glava in lok1.zivali:
         lok2.dodaj_zival(glava)
         lok1.odstrani_zival(glava)
-
-
 
 ###############################################################################################################
 
