@@ -7,6 +7,10 @@ from primer import Hlipink
 #try:
 #    ...
 
+@bottle.get("/login/")
+def login():
+    return bottle.template('login.html')
+
 @bottle.get("/")
 def osnovna_stran():
     return bottle.template('osnovna_stran.html')
@@ -27,6 +31,10 @@ def dodaj_zival():
 #@bottle.get("/register/uspesno-dodano/")
 #def uspesno_dodano():
 #    return "Žival uspešno vnešena."
+
+@bottle.get("/lokacija/")
+def lokacija():
+    return bottle.template('lokacije.html')
 
 @bottle.get("/delovne-ure/")
 def delovne_ure():
