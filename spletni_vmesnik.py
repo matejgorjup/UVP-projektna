@@ -13,11 +13,9 @@ def osnovna_stran():
 
 @bottle.get("/register/")
 def register():
-    if 'id' in bottle.request.query:
-        Hlipink.prihod_zivali(bottle.request.query.getunicode['id'])
     return bottle.template(
         "stalez_zivine.html",
-        stanje = Hlipink.register
+        register = Hlipink.register
     )
 
 @bottle.post("/register/dodaj-zival/")
@@ -46,9 +44,6 @@ def surovine():
 def lokacija_zivine():
     return bottle.template('lokacija_zivine.html')
 
-@bottle.get("/bulma/")
-def bulma():
-    return bottle.template('bulma.html')
 
 
 bottle.run(reloader=True, debug=True)
