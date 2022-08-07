@@ -12,3 +12,40 @@
         </div>
     </div>
 </section>
+
+<section class="section">
+    <div class="buttons">
+        <button class="button is-info">Dodaj delavca</button>
+        <button class="button is-info">Povzetek delovnih dni</button>
+    </div>
+</section>
+
+<section class="section">   
+    % for delavec in delovna_sila: 
+        <div class="box">
+            <span class="tag is-info is-medium">Delavec: {{delavec.ime}}</span>
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Datum</th>
+                    <th>Št. delovnih ur na kmetiji</th>
+                    <th>Št. delovnih ur v gozdu</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                    % for dd in delavec.ure:
+                    <tr>
+                      <td><a class="tag is-delete"></a></td>
+                      <td>{{dd.datum}}</td>
+                      <td>{{dd.kmetijstvo}}</td>
+                      <td>{{dd.gozdarstvo}}</td>
+                    </tr>
+                    % end  
+                </tbody>
+              </table>
+        </div>
+    % end
+
+</section>
