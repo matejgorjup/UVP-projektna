@@ -14,12 +14,12 @@
 </section>
 <section class="section">
     <div class="buttons">
-        <button class="button is-info">Dodaj žival</button>
+        <button class="button is-info"><a href="http://127.0.0.1:8080/register/dodaj-zival/">Dodaj žival</a></button>
         <button class="button is-info">Poizvedba dnevnega stanja</button>
     </div>
+    
 </section>
-<section class="section">
-    <h1>Seznam živali</h1>
+
     <!--
     <div class="dropdown is-active">
         <div class="dropdown-trigger">
@@ -60,31 +60,20 @@
               </tr>
             </thead>
             <tbody>
+                % for zival in register:
                 <tr>
-                  <td>Cika</td>
-                  <td>gffds</td>
-                  <td>gfd</td>
-                  <td>gfds</td>
-                  <td>gffds</td>
-                  <td>gfdsa</td>
-                  <td>trewq</td>
-                  <td>65432</td>
+                  <td>{{zival.id}}</td>
+                  <td>{{zival.ime}}</td>
+                  <td>{{zival.rojstvo}}</td>
+                  <td>{{zival.spol}}</td>
+                  <td>{{zival.pasma}}</td>
+                  <td>{{zival.mati}}</td>
+                  <td>{{zival.oce}}</td>
+                  <td>{{zival.datum_prihoda}}</td>
                   <td><button class="button is-info">Več</button></td>
                   <td><button class="button is-danger">Odstrani</button></td>
                 </tr>
-                <tr>
-                    <td>Cika</td>
-                    <td>gffds</td>
-                    <td>gfd</td>
-                    <td>gfds</td>
-                    <td>gffds</td>
-                    <td>gfdsa</td>
-                    <td>trewq</td>
-                    <td>65432</td>
-                    <td><button class="button is-info">Več</button></td>
-                    <td><button class="button is-danger">Odstrani</button></td>
-                  </tr>
+                % end  
             </tbody>
           </table>
     </div>
-</section>
