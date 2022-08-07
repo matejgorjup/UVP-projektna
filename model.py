@@ -158,7 +158,9 @@ class Lokacija:
         self.ime = ime
         self.povrsina = povrsina
         self.zivali = []
-        self.stevilo = len(self.zivali) 
+
+    def stevilo_zivali(self):
+        return len(self.zivali)
 
     def dodaj_zival(self, zival):
         """Doda žival v čredo"""
@@ -167,6 +169,10 @@ class Lokacija:
     def odstrani_zival(self, zival):
         """Odstrani žival iz črede"""
         self.zivali.remove(zival)
+
+    def premakni_zival(self, lok2, zival):
+        self.odstrani_zival(zival)
+        lok2.dodaj_zival(zival)
 
     def __repr__(self):
         return f"Lokacija({self.ime})"
