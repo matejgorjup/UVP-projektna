@@ -19,15 +19,52 @@
     </div>
 </section>
 
-<section class="section">    
+% for lok in lokacije: 
+% if lok.stevilo_zivali() == 0:
     <div class="box">
-        Lokacija 1
+        <span class="tag is-info is-medium">Ime lokacije: {{lok.ime}}</span>
+        <span class="tag is-medium">Površina: {{lok.povrsina}} ha</span>
+        <span class="tag is-medium">Trenutno število živali: {{lok.stevilo_zivali()}}</span>
     </div>
-    
+% else:
     <div class="box">
-       Lokacija 2
+        <span class="tag is-info is-medium">Ime lokacije: {{lok.ime}}</span>
+        <span class="tag is-medium">Površina: {{lok.povrsina}} ha</span>
+        <span class="tag is-medium">Trenutno število živali: {{lok.stevilo_zivali()}}</span>
+        <table class="table">
+            <thead>
+              <tr>
+                <th>ID številka</th>
+                <th>Ime</th>
+                <th>Datum rojstva</th>
+                <th>Spol</th>
+                <th>Pasma</th>
+                <th>Mati</th>
+                <th>Oče</th>
+                <th></th>
+                <th><button class="button is-succes">Premakni vse</button></th>
+              </tr>
+            </thead>
+            <tbody>
+                % for zival in lok.zivali:
+                <tr>
+                  <td>{{zival.id}}</td>
+                  <td>{{zival.ime}}</td>
+                  <td>{{zival.rojstvo}}</td>
+                  <td>{{zival.spol}}</td>
+                  <td>{{zival.pasma}}</td>
+                  <td>{{zival.mati}}</td>
+                  <td>{{zival.oce}}</td>
+                  <td><button class="button is-danger">Odstrani</button></td>                      
+                  <td><button class="button is-succes">Premakni</button></td>
+                </tr>
+                % end  
+            </tbody>
+          </table>
     </div>
-</section>
+% end
+
+
                 
 
 

@@ -8,7 +8,8 @@ Belka = Zival("SI12341237", "Belka", datetime.date(2018, 12, 23), "Ž", "LIM", d
 Lina = Zival("SI36925814", "Lina", datetime.date(2021, 12, 23), "Ž", "LIM", datetime.date(2021, 12, 23), Belka.id, Ciko.id) 
 
 Brezovca = Lokacija("Brezovca", 123)
-Stala = Lokacija("Stala", 3)
+Stala = Lokacija("Štala", 3)
+Glizna = Lokacija("Gližna", 30)
 
 Hlipink.prihod_zivali(Belka)
 Hlipink.prihod_zivali(Ciko)
@@ -16,6 +17,7 @@ Hlipink.prihod_zivali(Lina)
 
 Hlipink.dodaj_lokacijo(Brezovca)
 Hlipink.dodaj_lokacijo(Stala)
+Hlipink.dodaj_lokacijo(Glizna)
 
 Brezovca.dodaj_zival(Lina)
 Brezovca.dodaj_zival(Ciko)
