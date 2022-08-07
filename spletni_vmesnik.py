@@ -26,11 +26,17 @@ def register():
         register = Hlipink.register
     )
 
-@bottle.post("/register/dodaj-zival/")
+@bottle.get("/register/dodaj-zival/")
 def dodaj_zival():
-    Hlipink.prihod_zivali(bottle.request.forms.getunicode("id"))
-    #Hlipink.shrani_stanje
-    bottle.redirect("/register/")
+    return bottle.template(
+        'register_dodaj_zival.html'
+    )
+
+#@bottle.post("/register/dodaj-zival/")
+#def dodaj_zival():
+#    Hlipink.prihod_zivali(bottle.request.forms.getunicode("id"))
+#    #Hlipink.shrani_stanje
+#    bottle.redirect("/register/")
 
 #@bottle.get("/register/uspesno-dodano/")
 #def uspesno_dodano():
@@ -40,13 +46,19 @@ def dodaj_zival():
 
 @bottle.get("/lokacija/")
 def lokacija():
-    return bottle.template('lokacije.html')
+    return bottle.template(
+        'lokacije.html',
+        lokacije = Hlipink.lokacije
+    )
 
 ################################################################################
 
 @bottle.get("/delovne-ure/")
 def delovne_ure():
-    return bottle.template('delovne_ure.html')
+    return bottle.template(
+        'delovne_ure.html',
+        delovna_sila = Hlipink.delovna_sila
+    )
 
 ################################################################################
 
