@@ -11,14 +11,18 @@ from primer import Hlipink
 def login():
     return bottle.template('login.html')
 
+################################################################################
+
 @bottle.get("/")
-def osnovna_stran():
-    return bottle.template('osnovna_stran.html')
+def namizje():
+    return bottle.template('namizje.html')
+
+################################################################################
 
 @bottle.get("/register/")
 def register():
     return bottle.template(
-        "stalez_zivine.html",
+        'register.html',
         register = Hlipink.register
     )
 
@@ -32,25 +36,29 @@ def dodaj_zival():
 #def uspesno_dodano():
 #    return "Žival uspešno vnešena."
 
+################################################################################
+
 @bottle.get("/lokacija/")
 def lokacija():
     return bottle.template('lokacije.html')
+
+################################################################################
 
 @bottle.get("/delovne-ure/")
 def delovne_ure():
     return bottle.template('delovne_ure.html')
 
+################################################################################
+
 @bottle.get("/denarno-porocilo/")
 def denarno_porocilo():
     return bottle.template('denarno_porocilo.html')
 
+################################################################################
+
 @bottle.get("/surovine/")
 def surovine():
     return bottle.template('surovine.html')
-
-@bottle.get("/lokacija-zivine/")
-def lokacija_zivine():
-    return bottle.template('lokacija_zivine.html')
 
 
 
