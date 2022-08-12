@@ -1,17 +1,14 @@
 import datetime
 from datetime import date
 import json
-from xml.dom.xmlbuilder import DOMBuilder
-import pandas
 
 class Gospodarstvo:
-    def __init__(self, mid, geslo):
+    def __init__(self, mid, register, lokacije, delovna_sila, dobrine):
         self.mid = int(mid)
-        self.geslo = geslo
-        self.register = []
-        self.lokacije = []
-        self.delovna_sila = []
-        self.dobrine = []
+        self.register = register
+        self.lokacije = lokacije
+        self.delovna_sila = delovna_sila
+        self.dobrine = dobrine
     
 #    @staticmethod
 #    def registracija(mid, geslo):
@@ -39,7 +36,6 @@ class Gospodarstvo:
     def v_slovar(self):
         return {
             "mid": self.mid,
-            "geslo": self.geslo,
             "register": [zival.v_slovar() for zival in self.register],
             "lokacije": [lokacija.v_slovar() for lokacija in self.lokacije],
             "delovna_sila": [delavec.v_slovar() for delavec in self.delovna_sila],
@@ -49,13 +45,11 @@ class Gospodarstvo:
     @staticmethod
     def iz_slovarja(slovar):
         mid = slovar["mid"]
-        geslo = slovar["geslo"]
-        gospodarstvo = Gospodarstvo(mid, geslo)
-        gospodarstvo.register = [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["register"]]
-        gospodarstvo.lokacije = [Lokacija.iz_slovarja(lokacija_sl) for lokacija_sl in slovar["lokacije"]]
-        gospodarstvo.delovna_sila = [Delavec.iz_slovarja(delavec_sl) for delavec_sl in slovar["delovna_sila"]]
-        gospodarstvo.dobrine = [Dobrina.iz_slovarja(dobrina_sl) for dobrina_sl in slovar["dobrine"]]
-        return Gospodarstvo(mid, geslo)
+        register = [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["register"]]
+        lokacije = [Lokacija.iz_slovarja(lokacija_sl) for lokacija_sl in slovar["lokacije"]]
+        delovna_sila = [Delavec.iz_slovarja(delavec_sl) for delavec_sl in slovar["delovna_sila"]]
+        dobrine = [Dobrina.iz_slovarja(dobrina_sl) for dobrina_sl in slovar["dobrine"]]
+        return Gospodarstvo(mid, register, lokacije, delovna_sila, dobrine)
 
     def v_datoteko(self, ime):
         ime_dat = self.mid
@@ -74,13 +68,13 @@ class Gospodarstvo:
 
     def prihod_zivali(self, zival):
         if zival in self.register:
-            raise ValueError(f"dodaj_delovni_dan {zival.id} je že v registru!")
+            raise ValueError(f"{zival.id} je že v registru!")
         else:
             self.register.append(zival)
 
     def odhod_zivali(self, zival):
         if zival not in self.register:
-            raise ValueError(f"dodaj_delovni_dan {zival.id} v registru ne obstaja!")
+            raise ValueError(f"{zival.id} v registru ne obstaja!")
         else:
             self.register.remove(zival)
 
@@ -114,14 +108,10 @@ class Zival:
         self.mati = mati
         self.oce = oce
         self.datum_prihoda = datum_prihoda       
-        self.datum_odhoda = None
 
     def odhod(self, datum):
         """Odjavi žival iz registra"""
         self.datum_odhoda = datum 
-
-    def __repr__(self):
-        return f"Žival({self.ime, self.id})"
 
     def v_slovar(self):
         return {
@@ -133,31 +123,27 @@ class Zival:
             "mati": self.mati,
             "oce": self.oce,
             "datum_prihoda": self.datum_prihoda.isoformat() if self.datum_prihoda else None,
-            "datum_odhoda": self.datum_odhoda.isoformat() if self.datum_odhoda else None
         }
 
     @staticmethod
     def iz_slovarja(slovar):
-        zival = Zival(
-            slovar["id"],
-            slovar["ime"],
-            slovar["rojstvo"],
-            slovar["spol"],
-            slovar["pasma"],
-            slovar["mati"],
-            slovar["oce"],
-            slovar["datum_prihoda"]
-        )
-        zival.datum_odhoda = date.fromisoformat(slovar["datum_odhoda"]) if slovar["datum_odhoda"] else None
-        return zival 
+        id = slovar["id"]
+        ime = slovar["ime"]
+        rojstvo = slovar["rojstvo"]
+        spol = slovar["spol"]
+        pasma = slovar["pasma"]
+        mati = slovar["mati"]
+        oce = slovar["oce"]
+        datum_prihoda = slovar["datum_prihoda"]
+        return Zival(id, ime, rojstvo, spol, pasma, datum_prihoda, mati, oce)
 
 ###############################################################################################################
 
 class Lokacija:
-    def __init__(self, ime, povrsina):
+    def __init__(self, ime, povrsina, zivali):
         self.ime = ime
         self.povrsina = povrsina
-        self.zivali = []
+        self.zivali = zivali
 
     def stevilo_zivali(self):
         return len(self.zivali)
@@ -174,9 +160,6 @@ class Lokacija:
         self.odstrani_zival(zival)
         lok2.dodaj_zival(zival)
 
-    def __repr__(self):
-        return f"Lokacija({self.ime})"
-
     def v_slovar(self):
         return {
             "ime": self.ime,
@@ -186,12 +169,10 @@ class Lokacija:
     
     @staticmethod
     def iz_slovarja(slovar):
-        lokacija = Lokacija(
-            slovar["ime"],
-            slovar["povrsina"]
-        )
-        lokacija.zivali = [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["zivali"]]
-        return lokacija
+        ime = slovar["ime"]
+        povrsina = slovar["povrsina"]
+        zivali = [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["zivali"]]
+        return Lokacija(ime, povrsina, zivali)
 
 def druga_lokacija(lok1, lok2):
     """Premakne celo čredo na drugo lokacijo"""
@@ -202,9 +183,9 @@ def druga_lokacija(lok1, lok2):
 ###############################################################################################################
 
 class Delavec:
-    def __init__(self, ime):
+    def __init__(self, ime, ure):
         self.ime = ime
-        self.ure = []
+        self.ure = ure
     
     def dodaj_delovni_dan(self, datum, ure_kmet, ure_gozd):
         self.ure.append(DelovniDan(datum, ure_kmet, ure_gozd))
@@ -217,10 +198,9 @@ class Delavec:
     
     @staticmethod
     def iz_slovarja(slovar):
-        return Delavec(
-            slovar["ime"],
-            [DelovniDan.iz_slovarja(dan_sl) for dan_sl in slovar["ure"]]
-        )
+        ime = slovar["ime"]
+        ure = [DelovniDan.iz_slovarja(dan_sl) for dan_sl in slovar["ure"]]
+        return Delavec(ime, ure)
 
     def povzetek_ur(self, zacetni_datum, koncni_datum):
         """Izračuna število posameznih ur od zacetni_datum do koncni_datum (brez njega)"""
@@ -257,9 +237,9 @@ class DelovniDan:
 ###############################################################################################################
 
 class Dobrina:
-    def __init__(self, tip, enote):
+    def __init__(self, tip, kolicina, enote):
         self.tip = tip
-        self.kolicina = 0
+        self.kolicina = kolicina
         self.enote = enote
 
     def dodaj(self, kolicina):
@@ -274,20 +254,14 @@ class Dobrina:
 
     @staticmethod
     def iz_slovarja(slovar):
-        dobrina = Dobrina(
-            slovar["tip"],
-            slovar["enote"]
-        )
-        dobrina.kolicina = slovar["kolicina"]
-        return dobrina
+        tip = slovar["tip"]
+        kolicina = slovar["kolicina"]
+        enote = slovar["enote"]
+        return Dobrina(tip, kolicina, enote)
 
 ###############################################################################################################
 
 class Finance:
     pass
 
-
-## Bi delal s subclassi??? ##
-
-### PRIMER ###
 

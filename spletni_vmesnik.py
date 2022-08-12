@@ -2,14 +2,8 @@ import bottle
 from model import Gospodarstvo, Zival
 from primer import Hlipink
 
-#DATOTEKA_S_STANJEM = "neki.json"
-#
-#try:
-#    ...
 
-@bottle.get("/login/")
-def login():
-    return bottle.template('login.html')
+stanje = Gospodarstvo.iz_datoteke("stanja_uporabnikov/100475958")
 
 ################################################################################
 
@@ -23,7 +17,7 @@ def namizje():
 def register():
     return bottle.template(
         'register.html',
-        register = Hlipink.register
+        register = stanje.register
     )
 
 @bottle.get("/register/dodaj-zival/")
@@ -32,15 +26,30 @@ def dodaj_zival():
         'register_dodaj_zival.html'
     )
 
-#@bottle.post("/register/dodaj-zival/")
-#def dodaj_zival():
-#    Hlipink.prihod_zivali(bottle.request.forms.getunicode("id"))
-#    #Hlipink.shrani_stanje
-#    bottle.redirect("/register/")
+@bottle.post("/register/dodaj-zival/")
+def dodaj_zival():
+    id = bottle.request.forms.getunicode("id")
+    ime = bottle.request.forms.getunicode("ime")
+    rojstvo = bottle.request.forms.getunicode("datum_rojstva")
+    spol = bottle.request.forms.getunicode("spol")
+    pasma = bottle.request.forms.getunicode("pasma")
+    mati = bottle.request.forms.getunicode("mati")
+    oce = bottle.request.forms.getunicode("oce")
+    prihod = bottle.request.forms.getunicode("datum_prihoda")
 
-#@bottle.get("/register/uspesno-dodano/")
-#def uspesno_dodano():
-#    return "Žival uspešno vnešena."
+    stanje.prihod_zivali(Zival(id, ime, rojstvo, spol, pasma, prihod, mati, oce))
+    Gospodarstvo.v_datoteko(stanje, "stanja_uporabnikov/100475958")
+
+    bottle.redirect("/register/")
+
+#@bottle.post("/register/odstrani-zival/<id>/")
+#def odstrani(id):
+#    stanje = stanje_trenutnega_uporabnika()
+#    kategorija = stanje.kategorije[id_kategorije]
+#    opravilo = kategorija.opravila[id_opravila]
+#    opravilo.opravi()
+#    shrani_stanje_trenutnega_uporabnika(stanje)
+#    bottle.redirect("/register/")
 
 ################################################################################
 
@@ -48,17 +57,17 @@ def dodaj_zival():
 def lokacija():
     return bottle.template(
         'lokacije.html',
-        lokacije = Hlipink.lokacije
+        lokacije = stanje.lokacije
     )
 
 ################################################################################
 
-@bottle.get("/delovne-ure/")
-def delovne_ure():
-    return bottle.template(
-        'delovne_ure.html',
-        delovna_sila = Hlipink.delovna_sila
-    )
+#@bottle.get("/delovne-ure/")
+#def delovne_ure():
+#    return bottle.template(
+#        'delovne_ure.html',
+#        delovna_sila = stanje().delovna_sila
+#    )
 
 ################################################################################
 

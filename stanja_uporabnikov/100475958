@@ -1,6 +1,5 @@
 {
     "mid": 100475958,
-    "geslo": null,
     "register": [
         {
             "id": "SI12341237",
@@ -10,8 +9,7 @@
             "pasma": "LIM",
             "mati": null,
             "oce": null,
-            "datum_prihoda": "2018-12-23",
-            "datum_odhoda": null
+            "datum_prihoda": "2018-12-23"
         },
         {
             "id": "SI12341234",
@@ -21,8 +19,7 @@
             "pasma": "LIM",
             "mati": null,
             "oce": null,
-            "datum_prihoda": "2018-12-23",
-            "datum_odhoda": null
+            "datum_prihoda": "2018-12-23"
         },
         {
             "id": "SI36925814",
@@ -32,8 +29,7 @@
             "pasma": "LIM",
             "mati": "SI12341237",
             "oce": "SI12341234",
-            "datum_prihoda": "2021-12-23",
-            "datum_odhoda": null
+            "datum_prihoda": "2021-12-23"
         }
     ],
     "lokacije": [
@@ -49,8 +45,7 @@
                     "pasma": "LIM",
                     "mati": "SI12341237",
                     "oce": "SI12341234",
-                    "datum_prihoda": "2021-12-23",
-                    "datum_odhoda": null
+                    "datum_prihoda": "2021-12-23"
                 },
                 {
                     "id": "SI12341234",
@@ -60,8 +55,7 @@
                     "pasma": "LIM",
                     "mati": null,
                     "oce": null,
-                    "datum_prihoda": "2018-12-23",
-                    "datum_odhoda": null
+                    "datum_prihoda": "2018-12-23"
                 }
             ]
         },
@@ -77,8 +71,7 @@
                     "pasma": "LIM",
                     "mati": null,
                     "oce": null,
-                    "datum_prihoda": "2018-12-23",
-                    "datum_odhoda": null
+                    "datum_prihoda": "2018-12-23"
                 }
             ]
         },
