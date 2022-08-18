@@ -46,16 +46,6 @@
                     "mati": "SI12341237",
                     "oce": "SI12341234",
                     "datum_prihoda": "2021-12-23"
-                },
-                {
-                    "id": "SI12341234",
-                    "ime": "Ciko",
-                    "rojstvo": "2018-12-23",
-                    "spol": "M",
-                    "pasma": "LIM",
-                    "mati": null,
-                    "oce": null,
-                    "datum_prihoda": "2018-12-23"
                 }
             ]
         },

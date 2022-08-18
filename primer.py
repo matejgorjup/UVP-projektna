@@ -1,5 +1,6 @@
 import datetime
 from datetime import date
+import model
 from model import Gospodarstvo, Zival, Lokacija, Delavec, Dobrina
 import json
 
@@ -22,7 +23,6 @@ Hlipink.dodaj_lokacijo(Stala)
 Hlipink.dodaj_lokacijo(Glizna)
 
 Brezovca.dodaj_zival(Lina)
-Brezovca.dodaj_zival(Ciko)
 Stala.dodaj_zival(Belka)
 
 Robert = Delavec("Robert", [])
@@ -65,3 +65,22 @@ Hlipink.v_datoteko("stanja_uporabnikov/100475958")
 with open("stanja_uporabnikov/100475958") as dat:
     slovar = json.load(dat)
     Gospodarstvo.iz_slovarja(slovar)
+
+def najdi(iskano):
+    for x in Hlipink.register:
+        if x.id == iskano:
+            return x
+#
+#def seznam_nerazporejenih(gospodarstvo):
+#    razporejene = []
+#    for lokacija in gospodarstvo.lokacije:
+#        for zival in lokacija.zivali:
+#            razporejene.append(zival)
+#    nerazporejene = []
+#    for zival in gospodarstvo.register:
+#        if zival not in razporejene:
+#            nerazporejene.append(zival)
+#    return nerazporejene
+
+
+            

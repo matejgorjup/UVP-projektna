@@ -24,6 +24,7 @@
     % for delavec in delovna_sila: 
         <div class="box">
             <span class="tag is-info is-medium">Delavec: {{delavec.ime}}</span>
+            <hr>
             <table class="table">
                 <thead>
                   <tr>
@@ -45,6 +46,35 @@
                     % end  
                 </tbody>
               </table>
+            <hr>
+
+            <label class="label">Vnos ur</label>
+            <div class="field-body">
+                <div class="field">
+                  <p class="control is-expanded">
+                    <input class="input" type="text" placeholder="Datum">
+                    <span class="icon is-small is-left">
+                    </span>
+                  </p>
+                </div>
+                <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input" type="text" placeholder="Število ur na kmetiji">
+                      <span class="icon is-small is-left">
+                      </span>
+                    </p>
+                </div>
+                <div class="field">
+                    <p class="control is-expanded">
+                      <input class="input" type="text" placeholder="Število ur v gozdu">
+                      <span class="icon is-small is-left">
+                      </span>
+                    </p>
+                </div>
+                <p class="control">
+                    <a class="button is-info">Vnesi</a>
+                </p>
+            </div>
         </div>
     % end
 

@@ -95,6 +95,12 @@ class Gospodarstvo:
 
     def dodaj_dobrino(self, dobrina):
         self.dobrine.append(dobrina)
+    
+    def stevilo_razporejenih(self):
+        stevilo = 0
+        for lokacija in self.lokacije:
+            stevilo += lokacija.stevilo_zivali()
+        return stevilo
 
 ###############################################################################################################
 
@@ -129,13 +135,15 @@ class Zival:
     def iz_slovarja(slovar):
         id = slovar["id"]
         ime = slovar["ime"]
-        rojstvo = slovar["rojstvo"]
+        rojstvo = date.fromisoformat(slovar["rojstvo"]) if slovar["rojstvo"] else None
         spol = slovar["spol"]
         pasma = slovar["pasma"]
         mati = slovar["mati"]
         oce = slovar["oce"]
-        datum_prihoda = slovar["datum_prihoda"]
+        datum_prihoda = date.fromisoformat(slovar["datum_prihoda"]) if slovar["datum_prihoda"] else None
         return Zival(id, ime, rojstvo, spol, pasma, datum_prihoda, mati, oce)
+
+
 
 ###############################################################################################################
 
@@ -179,6 +187,19 @@ def druga_lokacija(lok1, lok2):
     for glava in lok1.zivali:
         lok2.dodaj_zival(glava)
         lok1.odstrani_zival(glava)
+
+
+def seznam_nerazporejenih(gospodarstvo):
+    """Vrne seznam živali, ki niso razporejene po lokacijah"""
+    razporejene = []
+    for lokacija in gospodarstvo.lokacije:
+        for zival in lokacija.zivali:
+            razporejene.append(zival)
+    nerazporejene = []
+    for zival in gospodarstvo.register:
+        if zival not in razporejene:
+            nerazporejene.append(zival)
+    return nerazporejene
 
 ###############################################################################################################
 
@@ -229,7 +250,7 @@ class DelovniDan:
     @staticmethod
     def iz_slovarja(slovar):
         return DelovniDan(
-            slovar["datum"],
+            date.fromisoformat(slovar["datum"]),
             slovar["kmetijstvo"],
             slovar["gozdarstvo"]
         )
@@ -258,10 +279,3 @@ class Dobrina:
         kolicina = slovar["kolicina"]
         enote = slovar["enote"]
         return Dobrina(tip, kolicina, enote)
-
-###############################################################################################################
-
-class Finance:
-    pass
-
-

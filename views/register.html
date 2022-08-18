@@ -17,32 +17,10 @@
         <button class="button is-info"><a href="http://127.0.0.1:8080/register/dodaj-zival/">Dodaj žival</a></button>
         <button class="button is-info">Poizvedba dnevnega stanja</button>
     </div>
-    
 </section>
 
-    <!--
-    <div class="dropdown is-active">
-        <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-            <span>Razvrsti po</span>
-            <span class="icon is-small">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu" role="menu">
-          <div class="dropdown-content">
-            <a class="dropdown-item">ID številka</a>
-            <a class="dropdown-item">Ime</a>
-            <a class="dropdown-item">Datum rojstva</a>
-            <a class="dropdown-item">Pasma</a>
-            <a class="dropdown-item">Mati</a>
-            <a class="dropdown-item">Oče</a>
-            <a class="dropdown-item">Datum prihoda</a>
-          </div>
-        </div>
-      </div>
-    -->
+<hr>
+
     <div class="column">
         <table class="table">
             <thead>
@@ -56,13 +34,12 @@
                 <th>Oče</th>
                 <th>Datum prihoda</th>
                 <th></th>
-                <th></th>
               </tr>
             </thead>
             <tbody>
                 % for zival in register:
                 <tr>
-                  <td>{{zival.id}}</td>
+                  <td name="id">{{zival.id}}</td>
                   <td>{{zival.ime}}</td>
                   <td>{{zival.rojstvo}}</td>
                   <td>{{zival.spol}}</td>
@@ -70,7 +47,6 @@
                   <td>{{zival.mati}}</td>
                   <td>{{zival.oce}}</td>
                   <td>{{zival.datum_prihoda}}</td>
-                  <td><button class="button is-info">Več</button></td>
                   <td><button class="button is-danger">Odstrani</button></td>
                 </tr>
                 % end  

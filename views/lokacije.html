@@ -13,28 +13,69 @@
     </div>
 </section>
 
-<section class="section">
-    <div class="buttons">
-        <button class="button is-info">Dodaj lokacijo</button>
-    </div>
-</section>
-
+% if nerazporejeno:
 <div class="notification is-danger">
     V registru imate živali, ki niso razporejene po lokacijah.
 </div>
+<div class="column">
+    <table class="table">
+        <thead>
+          <tr>
+            <th>ID številka</th>
+            <th>Ime</th>
+            <th>Datum rojstva</th>
+            <th>Spol</th>
+            <th>Pasma</th>
+            <th>Mati</th>
+            <th>Oče</th>
+            <th>Datum prihoda</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            % for zival in nerazporejeno:
+            <tr>
+              <td name="id">{{zival.id}}</td>
+              <td>{{zival.ime}}</td>
+              <td>{{zival.rojstvo}}</td>
+              <td>{{zival.spol}}</td>
+              <td>{{zival.pasma}}</td>
+              <td>{{zival.mati}}</td>
+              <td>{{zival.oce}}</td>
+              <td>{{zival.datum_prihoda}}</td>
+              <td><button class="button is-danger">Odstrani</button></td>
+            </tr>
+            % end  
+        </tbody>
+      </table>
+</div>
+% end
+
+<hr>
 
 % for lok in lokacije: 
 % if lok.stevilo_zivali() == 0:
     <div class="box">
-        <span class="tag is-info is-medium">Ime lokacije: {{lok.ime}}</span>
-        <span class="tag is-medium">Površina: {{lok.povrsina}} ha</span>
-        <span class="tag is-medium">Trenutno število živali: {{lok.stevilo_zivali()}}</span>
+        <section> 
+            <span class="tag is-info is-medium">Ime lokacije: {{lok.ime}}</span>
+            <span class="tag is-medium">Površina: {{lok.povrsina}} ha</span>
+            <span class="tag is-medium">Trenutno število živali: {{lok.stevilo_zivali()}}</span>
+        </section>
+        <hr>
+        <section>
+            <button class="button is-succes" float="right">Dodaj žival</button>
+        </section>
+    </div>
+    <div>
     </div>
 % else:
     <div class="box">
-        <span class="tag is-info is-medium">Ime lokacije: {{lok.ime}}</span>
-        <span class="tag is-medium">Površina: {{lok.povrsina}} ha</span>
-        <span class="tag is-medium">Trenutno število živali: {{lok.stevilo_zivali()}}</span>
+        <section>
+            <span class="tag is-info is-medium">Ime lokacije: {{lok.ime}}</span>
+            <span class="tag is-medium">Površina: {{lok.povrsina}} ha</span>
+            <span class="tag is-medium">Trenutno število živali: {{lok.stevilo_zivali()}}</span>
+        </section>
+        <hr>
         <table class="table">
             <thead>
               <tr>
@@ -46,7 +87,7 @@
                 <th>Mati</th>
                 <th>Oče</th>
                 <th></th>
-                <th><button class="button is-succes">Premakni vse</button></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -65,8 +106,18 @@
                 % end  
             </tbody>
           </table>
+        <section>
+            <button class="button is-succes">Dodaj žival</button>
+            <button class="button is-succes">Premakni vse</button>
+        </section>
     </div>
 % end
+% end
+<section class="section">
+    <div class="buttons">
+        <button class="button is-info"><a href="http://127.0.0.1:8080/lokacije/dodaj-lokacijo/">Dodaj lokacijo</a></button>
+    </div>
+</section>
 
 
                 
