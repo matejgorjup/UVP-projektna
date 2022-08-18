@@ -30,6 +30,16 @@
             "mati": "SI12341237",
             "oce": "SI12341234",
             "datum_prihoda": "2021-12-23"
+        },
+        {
+            "id": "SI78945612",
+            "ime": "Ceko",
+            "rojstvo": "2022-08-12",
+            "spol": "M",
+            "pasma": "LIM",
+            "mati": "SI78945674",
+            "oce": "SI74185296",
+            "datum_prihoda": "2022-08-12"
         }
     ],
     "lokacije": [
