@@ -3,58 +3,66 @@
 <section class="hero is-info welcome is-small">
     <div class="hero-body">
         <div class="container">
-            <h1 class="title">
-                Register
-            </h1>
-            <h2 class="subtitle">
-                Navodila za uporabo
-            </h2>
+            <h1 class="title">Register</h1>
+            <h2 class="subtitle">Dodajte ali odstranite živali na vašem gospodarstvu.</h2>
         </div>
     </div>
 </section>
+
+<!--
 <section class="section">
-    <div class="buttons">
-        <button class="button is-info">Poizvedba dnevnega stanja</button>
+    <div class="field has-addons">
+        <div class="control">
+            <input class="input" type="date" placeholder="llll-mm-dd">
+        </div>
+        <div class="control">
+            <a class="button is-info">Poizvedba dnevnega stanja</a>
+        </div>
     </div>
 </section>
 
-<hr>
+<hr>    
+-->
 
-    <div class="column">
-        <table class="table">
-            <thead>
-              <tr>
-                <th>ID številka</th>
-                <th>Ime</th>
-                <th>Datum rojstva</th>
-                <th>Spol</th>
-                <th>Pasma</th>
-                <th>Mati</th>
-                <th>Oče</th>
-                <th>Datum prihoda</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-                % for zival in register:
-                <tr>
-                  <td name="id">{{zival.id}}</td>
-                  <td>{{zival.ime}}</td>
-                  <td>{{zival.rojstvo}}</td>
-                  <td>{{zival.spol}}</td>
-                  <td>{{zival.pasma}}</td>
-                  <td>{{zival.mati}}</td>
-                  <td>{{zival.oce}}</td>
-                  <td>{{zival.datum_prihoda}}</td>
-                  <td><button class="button is-danger">Odstrani</button></td>
-                </tr>
-                % end  
-            </tbody>
-          </table>
+<section>
+    <div class="box">
+        <div class="column">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID številka</th>
+                        <th>Ime</th>
+                        <th>Datum rojstva</th>
+                        <th>Spol</th>
+                        <th>Pasma</th>
+                        <th>Mati</th>
+                        <th>Oče</th>
+                        <th>Datum prihoda</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    % for zival in register:
+                    <tr>
+                        <td>{{zival.id}}</td>
+                        <td>{{zival.ime}}</td>
+                        <td>{{zival.rojstvo}}</td>
+                        <td>{{zival.spol}}</td>
+                        <td>{{zival.pasma}}</td>
+                        <td>{{zival.mati}}</td>
+                        <td>{{zival.oce}}</td>
+                        <td>{{zival.datum_prihoda}}</td>
+                        <td><button class="button is-danger">Odstrani</button></td>
+                    </tr>
+                    % end  
+                </tbody>
+            </table>
+        </div>
     </div>
+</section>
 
 <section class="section">
     <div class="buttons">
-        <button class="button is-info"><a href="http://127.0.0.1:8080/register/dodaj-zival/">Dodaj žival</a></button>
+        <button class="button is-link is-light"><a href="http://127.0.0.1:8080/register/dodaj-zival/" style="text-decoration: none;">Dodaj žival</a></button>
     </div>
 </section>

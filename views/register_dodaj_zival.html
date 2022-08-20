@@ -15,11 +15,11 @@
 <section class="section">
   
     <div class="box">
-        <form method="POST">
+    <form method="POST">
         <div class="field">
             <label class="label">ID številka</label>
             <div class="control">
-              <input class="input" type="text" name="id" placeholder="npr. SI98765432">
+              <input class="input" type="text" name="id" required placeholder="npr. SI98765432">
             </div>
         </div>
 
@@ -33,7 +33,7 @@
         <div class="field">
             <label class="label">Datum rojstva</label>
             <div class="control">
-              <input class="input" type="text" name="datum_rojstva" placeholder="llll-mm-dd">
+              <input class="input" type="date" name="datum_rojstva" required placeholder="llll-mm-dd">
             </div>
         </div>
 
@@ -74,7 +74,7 @@
         <div class="field">
             <label class="label">Datum prihoda</label>
             <div class="control">
-              <input class="input" type="text" name="datum_prihoda" placeholder="llll-mm-dd">
+              <input class="input" type="date" name="datum_prihoda" required placeholder="llll-mm-dd">
             </div>
         </div>
             
@@ -83,7 +83,7 @@
             <button class="button is-link">Dodaj</button>
           </div>
           <div class="control">
-            <button class="button is-link is-light">Prekliči vnos</button>
+            <button class="button is-link is-light"><a href="http://127.0.0.1:8080/register/" style="text-decoration: none;">Prekliči vnos</a></button>
           </div>
         </div>
     </form>

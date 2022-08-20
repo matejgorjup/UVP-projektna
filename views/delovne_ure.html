@@ -15,7 +15,6 @@
 
 <section class="section">
     <div class="buttons">
-        <button class="button is-info">Dodaj delavca</button>
         <button class="button is-info">Povzetek delovnih dni</button>
     </div>
 </section>
@@ -52,21 +51,21 @@
             <div class="field-body">
                 <div class="field">
                   <p class="control is-expanded">
-                    <input class="input" type="text" placeholder="Datum">
+                    <input class="input" type="date" name="datum" placeholder="Datum">
                     <span class="icon is-small is-left">
                     </span>
                   </p>
                 </div>
                 <div class="field">
                     <p class="control is-expanded">
-                      <input class="input" type="text" placeholder="Število ur na kmetiji">
+                      <input class="input" type="text" name="ure_kmet" placeholder="Število ur na kmetiji">
                       <span class="icon is-small is-left">
                       </span>
                     </p>
                 </div>
                 <div class="field">
                     <p class="control is-expanded">
-                      <input class="input" type="text" placeholder="Število ur v gozdu">
+                      <input class="input" type="text" name="ure_gozd" placeholder="Število ur v gozdu">
                       <span class="icon is-small is-left">
                       </span>
                     </p>
@@ -78,4 +77,10 @@
         </div>
     % end
 
+</section>
+
+<section class="section">
+  <div class="buttons">
+      <button class="button is-info">Dodaj delavca</button>
+  </div>
 </section>
