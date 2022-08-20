@@ -1,7 +1,7 @@
 import datetime
 from datetime import date
 import model
-from model import Gospodarstvo, Zival, Lokacija, Delavec, Dobrina
+from model import Gospodarstvo, Zival, Lokacija, Delavec, Dobrina, seznam_nerazporejenih
 import json
 
 Hlipink = Gospodarstvo(100475958, [], [], [], [])
@@ -70,17 +70,7 @@ def najdi(iskano):
     for x in Hlipink.register:
         if x.id == iskano:
             return x
-#
-#def seznam_nerazporejenih(gospodarstvo):
-#    razporejene = []
-#    for lokacija in gospodarstvo.lokacije:
-#        for zival in lokacija.zivali:
-#            razporejene.append(zival)
-#    nerazporejene = []
-#    for zival in gospodarstvo.register:
-#        if zival not in razporejene:
-#            nerazporejene.append(zival)
-#    return nerazporejene
+
 
 
             

@@ -102,6 +102,18 @@ class Gospodarstvo:
             stevilo += lokacija.stevilo_zivali()
         return stevilo
 
+def seznam_nerazporejenih(gospodarstvo):
+    razporejene = []
+    for lokacija in gospodarstvo.lokacije:
+        for zival in lokacija.zivali:
+            razporejene.append(zival)
+    nerazporejene = []
+    for zival in gospodarstvo.register:
+        for glava in razporejene:
+            if zival.id == glava.id:
+                nerazporejene.append(zival)
+    return nerazporejene
+
 ###############################################################################################################
 
 class Zival:
@@ -279,3 +291,14 @@ class Dobrina:
         kolicina = slovar["kolicina"]
         enote = slovar["enote"]
         return Dobrina(tip, kolicina, enote)
+
+
+
+
+#stanje = Gospodarstvo.iz_datoteke("stanja_uporabnikov/100475958")
+#register = stanje.register
+#razporejene = []
+#for lokacija in stanje.lokacije:
+#    for zival in lokacija.zivali:
+#        razporejene.append(zival)
+#nerazporejene = []
