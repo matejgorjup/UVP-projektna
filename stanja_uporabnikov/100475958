@@ -5,11 +5,12 @@
             "id": "SI12341237",
             "ime": "Belka",
             "rojstvo": "2018-12-23",
-            "spol": "Ž",
+            "spol": "ï¿½",
             "pasma": "LIM",
             "mati": null,
             "oce": null,
-            "datum_prihoda": "2018-12-23"
+            "datum_prihoda": "2018-12-23",
+            "lokacija": "Brezovca"
         },
         {
             "id": "SI12341234",
@@ -19,17 +20,19 @@
             "pasma": "LIM",
             "mati": null,
             "oce": null,
-            "datum_prihoda": "2018-12-23"
+            "datum_prihoda": "2018-12-23",
+            "lokacija": "Brezovca"
         },
         {
-            "id": "SI36925814",
-            "ime": "Lina",
-            "rojstvo": "2021-12-23",
-            "spol": "Ž",
+            "id": "SI37538747",
+            "ime": "Jordana",
+            "rojstvo": "2021-08-24",
+            "spol": "ï¿½",
             "pasma": "LIM",
-            "mati": "SI12341237",
-            "oce": "SI12341234",
-            "datum_prihoda": "2021-12-23"
+            "mati": "",
+            "oce": "",
+            "datum_prihoda": "2021-08-24",
+            "lokacija": "GliÅ¾na"
         }
     ],
     "lokacije": [
@@ -38,37 +41,50 @@
             "povrsina": 123,
             "zivali": [
                 {
-                    "id": "SI36925814",
-                    "ime": "Lina",
-                    "rojstvo": "2021-12-23",
-                    "spol": "Ž",
+                    "id": "SI12341234",
+                    "ime": "Ciko",
+                    "rojstvo": "2018-12-23",
+                    "spol": "M",
                     "pasma": "LIM",
-                    "mati": "SI12341237",
-                    "oce": "SI12341234",
-                    "datum_prihoda": "2021-12-23"
-                }
-            ]
-        },
-        {
-            "ime": "Štala",
-            "povrsina": 3,
-            "zivali": [
+                    "mati": null,
+                    "oce": null,
+                    "datum_prihoda": "2018-12-23",
+                    "lokacija": "Brezovca"
+                },
                 {
                     "id": "SI12341237",
                     "ime": "Belka",
                     "rojstvo": "2018-12-23",
-                    "spol": "Ž",
+                    "spol": "ï¿½",
                     "pasma": "LIM",
                     "mati": null,
                     "oce": null,
-                    "datum_prihoda": "2018-12-23"
+                    "datum_prihoda": "2018-12-23",
+                    "lokacija": "Brezovca"
                 }
             ]
         },
         {
-            "ime": "Gližna",
-            "povrsina": 30,
+            "ime": "Å tala",
+            "povrsina": 3,
             "zivali": []
+        },
+        {
+            "ime": "GliÅ¾na",
+            "povrsina": 30,
+            "zivali": [
+                {
+                    "id": "SI37538747",
+                    "ime": "Jordana",
+                    "rojstvo": "2021-08-24",
+                    "spol": "ï¿½",
+                    "pasma": "LIM",
+                    "mati": "",
+                    "oce": "",
+                    "datum_prihoda": "2021-08-24",
+                    "lokacija": "GliÅ¾na"
+                }
+            ]
         }
     ],
     "delovna_sila": [

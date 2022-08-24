@@ -5,9 +5,9 @@ from model import Gospodarstvo, Zival, Lokacija, Delavec, Dobrina, seznam_nerazp
 import json
 
 Hlipink = Gospodarstvo(100475958, [], [], [], [])
-Ciko = Zival("SI12341234", "Ciko", datetime.date(2018, 12, 23), "M", "LIM", datetime.date(2018, 12, 23), None, None) 
-Belka = Zival("SI12341237", "Belka", datetime.date(2018, 12, 23), "Ž", "LIM", datetime.date(2018, 12, 23), None, None) 
-Lina = Zival("SI36925814", "Lina", datetime.date(2021, 12, 23), "Ž", "LIM", datetime.date(2021, 12, 23), Belka.id, Ciko.id) 
+Ciko = Zival("SI12341234", "Ciko", datetime.date(2018, 12, 23), "M", "LIM", datetime.date(2018, 12, 23), None, None, None) 
+Belka = Zival("SI12341237", "Belka", datetime.date(2018, 12, 23), "Ž", "LIM", datetime.date(2018, 12, 23), None, None, None) 
+Lina = Zival("SI36925814", "Lina", datetime.date(2021, 12, 23), "Ž", "LIM", datetime.date(2021, 12, 23), Belka.id, Ciko.id, None) 
 
 Brezovca = Lokacija("Brezovca", 123, [])
 Stala = Lokacija("Štala", 3, [])
@@ -22,8 +22,8 @@ Hlipink.dodaj_lokacijo(Brezovca)
 Hlipink.dodaj_lokacijo(Stala)
 Hlipink.dodaj_lokacijo(Glizna)
 
-Brezovca.dodaj_zival(Lina)
-Stala.dodaj_zival(Belka)
+#Brezovca.dodaj_zival(Lina)
+#Stala.dodaj_zival(Belka)
 
 Robert = Delavec("Robert", [])
 Dantes = Delavec("Dantes", [])
@@ -59,17 +59,9 @@ bale.dodaj(105)
 drva.dodaj(205)
 #Dantes.povzetek_ur(datetime.date(2022, 7, 23), datetime.date(2022, 7, 28))
 
-Hlipink.v_datoteko("stanja_uporabnikov/100475958")
+#Hlipink.v_datoteko("stanja_uporabnikov/100475958")
 
 
-with open("stanja_uporabnikov/100475958") as dat:
-    slovar = json.load(dat)
-    Gospodarstvo.iz_slovarja(slovar)
-
-def najdi(iskano):
-    for x in Hlipink.register:
-        if x.id == iskano:
-            return x
 
 
 

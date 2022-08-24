@@ -75,7 +75,12 @@ class Gospodarstvo:
     def odhod_zivali(self, zival):
         if zival not in self.register:
             raise ValueError(f"{zival.id} v registru ne obstaja!")
+        elif zival.lokacija == None:
+            self.register.remove(zival)
         else:
+            lokacija_zivali = najdi_lokacijo(zival.lokacija, self.lokacije)
+            zival_na_lokaciji = najdi_zival(zival.id, lokacija_zivali.zivali)
+            lokacija_zivali.odstrani_zival(zival_na_lokaciji)
             self.register.remove(zival)
 
     def dodaj_lokacijo(self, lokacija):
@@ -102,22 +107,10 @@ class Gospodarstvo:
             stevilo += lokacija.stevilo_zivali()
         return stevilo
 
-def seznam_nerazporejenih(gospodarstvo):
-    razporejene = []
-    for lokacija in gospodarstvo.lokacije:
-        for zival in lokacija.zivali:
-            razporejene.append(zival)
-    nerazporejene = []
-    for zival in gospodarstvo.register:
-        for glava in razporejene:
-            if zival.id == glava.id:
-                nerazporejene.append(zival)
-    return nerazporejene
-
 ###############################################################################################################
 
 class Zival:
-    def __init__(self, id, ime, datum_rojstva, spol, pasma, datum_prihoda, mati, oce):
+    def __init__(self, id, ime, datum_rojstva, spol, pasma, datum_prihoda, mati, oce, lokacija):
         self.id = id
         self.ime = ime
         self.rojstvo = datum_rojstva
@@ -125,11 +118,12 @@ class Zival:
         self.pasma = pasma
         self.mati = mati
         self.oce = oce
-        self.datum_prihoda = datum_prihoda       
+        self.datum_prihoda = datum_prihoda
+        self.lokacija = lokacija     
 
-    def odhod(self, datum):
-        """Odjavi žival iz registra"""
-        self.datum_odhoda = datum 
+#    def odhod(self, datum):
+#        """Odjavi žival iz registra"""
+#        self.datum_odhoda = datum 
 
     def v_slovar(self):
         return {
@@ -141,6 +135,7 @@ class Zival:
             "mati": self.mati,
             "oce": self.oce,
             "datum_prihoda": self.datum_prihoda.isoformat() if self.datum_prihoda else None,
+            "lokacija": self.lokacija,
         }
 
     @staticmethod
@@ -153,7 +148,8 @@ class Zival:
         mati = slovar["mati"]
         oce = slovar["oce"]
         datum_prihoda = date.fromisoformat(slovar["datum_prihoda"]) if slovar["datum_prihoda"] else None
-        return Zival(id, ime, rojstvo, spol, pasma, datum_prihoda, mati, oce)
+        lokacija = slovar["lokacija"]
+        return Zival(id, ime, rojstvo, spol, pasma, datum_prihoda, mati, oce, lokacija)
 
 
 
@@ -171,14 +167,21 @@ class Lokacija:
     def dodaj_zival(self, zival):
         """Doda žival v čredo"""
         self.zivali.append(zival)
+        zival.lokacija = self.ime
 
     def odstrani_zival(self, zival):
         """Odstrani žival iz črede"""
         self.zivali.remove(zival)
+        zival.lokacija = None
 
     def premakni_zival(self, lok2, zival):
         self.odstrani_zival(zival)
         lok2.dodaj_zival(zival)
+        zival.lokacija = lok2.ime
+    
+    def premakni_vse(self, lok2):
+        for zival in self.zivali:
+            premakni_zival(self, lok2, zival)
 
     def v_slovar(self):
         return {
@@ -201,17 +204,10 @@ def druga_lokacija(lok1, lok2):
         lok1.odstrani_zival(glava)
 
 
-def seznam_nerazporejenih(gospodarstvo):
-    """Vrne seznam živali, ki niso razporejene po lokacijah"""
-    razporejene = []
-    for lokacija in gospodarstvo.lokacije:
-        for zival in lokacija.zivali:
-            razporejene.append(zival)
-    nerazporejene = []
+def nerazporejene_zivali(gospodarstvo):
     for zival in gospodarstvo.register:
-        if zival not in razporejene:
-            nerazporejene.append(zival)
-    return nerazporejene
+        if zival.lokacija == None:
+            return True
 
 ###############################################################################################################
 
@@ -293,12 +289,27 @@ class Dobrina:
         return Dobrina(tip, kolicina, enote)
 
 
+def najdi_zival(stevilka, register):
+    for zival in register:
+        if zival.id == stevilka:
+            return zival 
 
 
-#stanje = Gospodarstvo.iz_datoteke("stanja_uporabnikov/100475958")
-#register = stanje.register
-#razporejene = []
-#for lokacija in stanje.lokacije:
-#    for zival in lokacija.zivali:
-#        razporejene.append(zival)
-#nerazporejene = []
+def najdi_lokacijo(imme, lokacije):
+    for lok in lokacije:
+        if lok.ime == imme:
+            return lok
+
+
+def st_lokacij(lokacije):
+    n = 0
+    for lok in lokacije:
+        if lok.stevilo_zivali() > 0:
+            n += 1
+    return n
+
+
+
+stanje = Gospodarstvo.iz_datoteke("stanja_uporabnikov/100475958")
+register = stanje.register
+lokacije = stanje.lokacije
