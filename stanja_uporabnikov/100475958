@@ -33,6 +33,17 @@
             "oce": "",
             "datum_prihoda": "2021-08-24",
             "lokacija": "Gližna"
+        },
+        {
+            "id": "SI78985245",
+            "ime": "Pepi",
+            "rojstvo": "2018-02-14",
+            "spol": "M",
+            "pasma": "LIM",
+            "mati": "",
+            "oce": "",
+            "datum_prihoda": "2019-02-14",
+            "lokacija": "Polje"
         }
     ],
     "lokacije": [
@@ -83,6 +94,23 @@
                     "oce": "",
                     "datum_prihoda": "2021-08-24",
                     "lokacija": "Gližna"
+                }
+            ]
+        },
+        {
+            "ime": "Polje",
+            "povrsina": "150",
+            "zivali": [
+                {
+                    "id": "SI78985245",
+                    "ime": "Pepi",
+                    "rojstvo": "2018-02-14",
+                    "spol": "M",
+                    "pasma": "LIM",
+                    "mati": "",
+                    "oce": "",
+                    "datum_prihoda": "2019-02-14",
+                    "lokacija": "Polje"
                 }
             ]
         }

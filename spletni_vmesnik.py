@@ -20,11 +20,11 @@ def shrani_stanje(mid):
 #        return Gospodarstvo.iz_datoteke(f"/stanja_uporabnikov/{mid}")
 #    else:
 #        bottle.redirect("/prijava/")
-#
-#@bottle.get("/registracija/")
-#def registracija_get():
-#    return bottle.template("signup.html", napaka=None, mid=None)
-#
+
+@bottle.get("/registracija/")
+def registracija_get():
+    return bottle.template("registracija.html", napaka=None, mid=None)
+
 #@bottle.post("/registracija/")
 #def registracija_post():
 #    mid = bottle.request.forms.getunicode("mid")
@@ -40,10 +40,10 @@ def shrani_stanje(mid):
 #    except ValueError as e:
 #        return bottle.template("registracija.tpl", napaka=e.args[0], uporabnik=None)
 #
-#@bottle.get("/login/")
-#def login():
-#    return bottle.template("login.html", napaka=None, uporabnik=None)
-#
+@bottle.get("/login/")
+def login():
+    return bottle.template("login.html", napaka=None, uporabnik=None)
+
 #@bottle.post("/login/")
 #def prijava():
 #  mid = bottle.request.forms["mid"]
@@ -86,8 +86,8 @@ def namizje():
 def register():
     #    stanje = stanje_trenutnega_uporabnika()
     return bottle.template(
-        'register.html',
-        register = stanje.register
+        'register.html', 
+        register_sorted = sorted(stanje.register, key=lambda x: x.rojstvo) 
     )
 
 @bottle.post("/register/")
@@ -145,7 +145,7 @@ def razporejanje():
     Gospodarstvo.v_datoteko(stanje, "stanja_uporabnikov/100475958")
     bottle.redirect("/lokacije/")
 
-@bottle.post("/lokacije/{{lok.ime}}")
+@bottle.post("/lokacije/<lok.ime>")
 def premik():
     id_zivali = bottle.request.forms.getunicode("zival")
     zival = (najdi_zival(id_zivali, stanje.register))
@@ -192,7 +192,7 @@ def delovne_ure():
         delovna_sila = stanje.delovna_sila
     )
 
-@bottle.post("/delovne-ure/")
+@bottle.post("/delovne-ure/<indeks_delavca:int>/")
 def opravljeno():
     datum = bottle.request.forms.getunicode("datum")
     ure_kmet = bottle.request.forms.getunicode("ure_kmet")
@@ -200,7 +200,7 @@ def opravljeno():
     delavec = nekki
     delavec.dodaj_delovni_dan(datum, ure_kmet, ure_gozd)
 
-@bottle.get("/delavec/<index_delavca:int>/")
+@bottle.get("/delovne_ure/delavec/<indeks_delavca:int>/")
 def delavec(index_delavca):
     #uporabnik = trenutni_uporabnik()
     delavec = stanje.delovna_sila[index_delavca]
@@ -208,12 +208,6 @@ def delavec(index_delavca):
         "delavec.html",
     )
     
-
 ################################################################################
-
-@bottle.get("/surovine/")
-def surovine():
-    return bottle.template('surovine.html')
-
 
 bottle.run(reloader=True, debug=True)

@@ -1,6 +1,6 @@
 % rebase('base.html')
 
-<section class="hero is-info welcome is-small">
+<section class="hero is-link welcome is-small">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
@@ -53,34 +53,60 @@
 </section>
 
 <section>
-  <label class="label">Vnos ur</label>
-            <div class="field-body">
-                <div class="field">
-                  <p class="control is-expanded">
-                    <input class="input" type="date" name="datum" placeholder="Datum">
-                    <span class="icon is-small is-left">
-                    </span>
-                  </p>
-                </div>
-                <div class="field">
-                    <p class="control is-expanded">
-                      <input class="input" type="text" name="ure_kmet" placeholder="Število ur na kmetiji">
-                      <span class="icon is-small is-left">
-                      </span>
-                    </p>
-                </div>
-                <div class="field">
-                    <p class="control is-expanded">
-                      <input class="input" type="text" name="ure_gozd" placeholder="Število ur v gozdu">
-                      <span class="icon is-small is-left">
-                      </span>
-                    </p>
-                </div>
-                <p class="control">
-                    <a class="button is-info">Vnesi</a>
-                </p>
-            </div>
-</section>
+
+
+% for delavec in delovna_sila:
+<div class="card">
+  <div class="card-content">
+    <div class="media">
+      <div class="media-left">
+        <figure class="image is-48x48">
+          <img src="https://icons-for-free.com/iconfiles/png/512/person-1324760545186718018.png" alt="Placeholder image">
+        </figure>
+      </div>
+      <div class="media-content">
+        <p class="title is-4">{{delavec.ime}}</p>
+        <p class="subtitle is-6"><a href="http://127.0.0.1:8080/delovne-ure/" style="text-decoration: none;">Oglej si profil</a></p>
+      </div>
+    </div>
+
+    <div>
+
+      <label class="label">Vnos ur</label>
+      <div class="field-body">
+          <div class="field">
+            <p class="control is-expanded">
+              <input class="input" type="date" name="datum" placeholder="Datum">
+              <span class="icon is-small is-left">
+              </span>
+            </p>
+          </div>
+          <div class="field">
+              <p class="control is-expanded">
+                <input class="input" type="text" name="ure_kmet" placeholder="Število ur na kmetiji">
+                <span class="icon is-small is-left">
+                </span>
+              </p>
+          </div>
+          <div class="field">
+              <p class="control is-expanded">
+                <input class="input" type="text" name="ure_gozd" placeholder="Število ur v gozdu">
+                <span class="icon is-small is-left">
+                </span>
+              </p>
+          </div>
+          <p class="control">
+              <a class="button is-info">Vnesi</a>
+          </p>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<hr> 
+% end
 
 <section class="section">
   <div class="buttons">

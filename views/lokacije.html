@@ -1,6 +1,6 @@
 % rebase('base.html')
 
-<section class="hero is-info welcome is-small">
+<section class="hero is-link welcome is-small">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">
@@ -14,7 +14,8 @@
     </div>
 </section>
 
-<div class="box">
+
+
 % if nerazporejeno:
     <div class="notification is-danger">
         V registru imate živali, ki niso razporejene po lokacijah:
@@ -42,13 +43,12 @@
                         <td>{{zival.pasma}}</td>
                         <td>{{zival.datum_prihoda}}</td>
                     </tr>
-                    % end
-                % end  
+                % end
             </tbody>
           </table>
     </div>
-
     <hr>
+
 
     <div>
     <form method="POST" action="/lokacije/">
@@ -79,8 +79,16 @@
             </div>
     </form>
     </div>
-</div>
 % end
+% end
+
+<div>
+    <section class="section">
+        <div class="buttons">
+            <button class="button is-link is-light"><a href="http://127.0.0.1:8080/lokacije/dodaj-lokacijo/" style="text-decoration: none;">Dodaj lokacijo</a></button>
+        </div>
+    </section>  
+</div>
 
 <div class="box">
 % for lok in lokacije: 
@@ -171,6 +179,7 @@
 % end
 
 <hr>
+<hr>
 
 
 <form method="POST" action="/lokacije/veliki-premik/">
@@ -200,13 +209,6 @@
             </div>
         </div>
 </form>
-
-
-<section class="section">
-    <div class="buttons">
-        <button class="button is-link is-light"><a href="http://127.0.0.1:8080/lokacije/dodaj-lokacijo/" style="text-decoration: none;">Dodaj lokacijo</a></button>
-    </div>
-</section>
 
 </div>
 

@@ -1,6 +1,6 @@
 % rebase('base.html')
 
-<section class="hero is-info welcome is-small">
+<section class="hero is-link welcome is-small">
     <div class="hero-body">
         <div class="container">
             <h1 class="title">Register</h1>
@@ -8,21 +8,6 @@
         </div>
     </div>
 </section>
-
-<!--
-<section class="section">
-    <div class="field has-addons">
-        <div class="control">
-            <input class="input" type="date" placeholder="llll-mm-dd">
-        </div>
-        <div class="control">
-            <a class="button is-info">Poizvedba dnevnega stanja</a>
-        </div>
-    </div>
-</section>
-
-<hr>    
--->
 
 <section>
     <div class="box">
@@ -42,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    % for zival in register:
+                    % for zival in register_sorted:
                     <tr>
                         <td>{{zival.id}}</td>
                         <td>{{zival.ime}}</td>
@@ -65,7 +50,7 @@
                 <div class="control is-expanded">
                     <div class="select is-fullwidth">
                         <select name="id_zivali">
-                            % for zival in register:
+                            % for zival in register_sorted:
                             <option>{{zival.id}}</option>
                             % end
                         </select>
