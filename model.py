@@ -1,70 +1,86 @@
 import datetime
 from datetime import date
 import json
+import hashlib
 
 class Gospodarstvo:
-    def __init__(self, mid, register, lokacije, delovna_sila, dobrine):
+    def __init__(self, mid, koda, register, lokacije, delovna_sila):
         self.mid = int(mid)
+        self.geslo = koda
         self.register = register
         self.lokacije = lokacije
         self.delovna_sila = delovna_sila
-        self.dobrine = dobrine
     
-#    @staticmethod
-#    def registracija(mid, geslo):
-#        if Uporabnik.iz_datoteke(mid) is not None:
-#            raise ValueError("Uporabnik s to MID številko že obstaja! Poskusite se prijaviti.")
-#        else:
-#            ustvarjen = Uporabnik(mid, geslo)
-#            ustvarjen.v_datoteko()
-#            return ustvarjen
-#
-#    @staticmethod
-#    def prijava(mid, vneseno_geslo):
-#        uporabnik = Uporabnik.iz_datoteke(mid)
-#        if uporabnik is None:
-#            raise ValueError("Uporabnik s to MID številko še ne obstaja! Najprej se morate registrirati.")
-#        elif uporabnik.vneseno_geslo == uporabnik.geslo:
-#            return uporabnik
-#        else:
-#            raise ValueError("Geslo je napačno! Poskusite znova.")
-#
-#    @staticmethod
-#    def stanje_uporabnika(mid):
-#        return f"{mid}.json"
-#
+    ###############
+
     def v_slovar(self):
         return {
             "mid": self.mid,
+            "geslo": self.geslo,
             "register": [zival.v_slovar() for zival in self.register],
             "lokacije": [lokacija.v_slovar() for lokacija in self.lokacije],
-            "delovna_sila": [delavec.v_slovar() for delavec in self.delovna_sila],
-            "dobrine": [dobrina.v_slovar() for dobrina in self.dobrine]
+            "delovna_sila": [delavec.v_slovar() for delavec in self.delovna_sila]
     }
  
     @staticmethod
     def iz_slovarja(slovar):
         mid = slovar["mid"]
+        geslo = slovar["geslo"]
         register = [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["register"]]
         lokacije = [Lokacija.iz_slovarja(lokacija_sl) for lokacija_sl in slovar["lokacije"]]
         delovna_sila = [Delavec.iz_slovarja(delavec_sl) for delavec_sl in slovar["delovna_sila"]]
-        dobrine = [Dobrina.iz_slovarja(dobrina_sl) for dobrina_sl in slovar["dobrine"]]
-        return Gospodarstvo(mid, register, lokacije, delovna_sila, dobrine)
+        return Gospodarstvo(mid, geslo, register, lokacije, delovna_sila)
 
-    def v_datoteko(self, ime):
-        ime_dat = self.mid
-        with open(ime, "w") as dat:
+    def v_datoteko(self):
+        path = f"stanja_uporabnikov/{self.mid}"
+        with open(path, "w") as dat:
             slovar = self.v_slovar()
             json.dump(slovar, dat, indent=4, ensure_ascii=False)
 
     @staticmethod
     def iz_datoteke(mid):
         try:
-            with open(mid) as dat:
+            path = f"stanja_uporabnikov/{mid}"
+            with open(path) as dat:
                 slovar = json.load(dat)
                 return Gospodarstvo.iz_slovarja(slovar)
         except FileNotFoundError:
             return None
+
+    ###############
+
+    @staticmethod
+    def registracija(mid, geslo):
+        if Gospodarstvo.iz_datoteke(mid) is not None:
+            raise ValueError("Uporabnik s to MID številko že obstaja! Poskusite se prijaviti ali vpišite drugo MID številko.")
+        else:
+            koda = Gospodarstvo.zakodiraj_geslo(geslo)
+            ustvarjen = Gospodarstvo(mid, koda)
+            ustvarjen.v_datoteko()
+            return ustvarjen
+
+    @staticmethod
+    def prijava(mid, vneseno_geslo):
+        gospodarstvo = Gospodarstvo.iz_datoteke(mid)
+        if gospodarstvo is None:
+            raise ValueError("Uporabnik s to MID številko še ne obstaja! Najprej se morate registrirati.")
+        elif gospodarstvo.preveri_geslo(vneseno_geslo):
+            return gospodarstvo
+        else:
+            raise ValueError("Geslo je napačno! Poskusite znova.")
+
+    def zakodiraj_geslo(geslo):
+        salt = str(random.getrandbits(42))
+        strong = salt + geslo
+        mash = hashlib.blake2b()
+        mash.update(strong.encode(encoding="utf-8"))
+        return f"{salt}${mash.hexdigest()}"
+
+    def preveri_geslo(self, geslo):
+        salt, _ = self.geslo.split("$")
+        return self.geslo == Gospodarstvo.zakodiraj_geslo(geslo, salt)
+
+    ###############
 
     def prihod_zivali(self, zival):
         if zival in self.register:
@@ -98,9 +114,6 @@ class Gospodarstvo:
     def dodaj_delavca(self, delavec):
         self.delovna_sila.append(delavec)
 
-    def dodaj_dobrino(self, dobrina):
-        self.dobrine.append(dobrina)
-    
     def stevilo_razporejenih(self):
         stevilo = 0
         for lokacija in self.lokacije:
@@ -121,9 +134,7 @@ class Zival:
         self.datum_prihoda = datum_prihoda
         self.lokacija = lokacija     
 
-#    def odhod(self, datum):
-#        """Odjavi žival iz registra"""
-#        self.datum_odhoda = datum 
+    ###############
 
     def v_slovar(self):
         return {
@@ -151,8 +162,6 @@ class Zival:
         lokacija = slovar["lokacija"]
         return Zival(id, ime, rojstvo, spol, pasma, datum_prihoda, mati, oce, lokacija)
 
-
-
 ###############################################################################################################
 
 class Lokacija:
@@ -160,6 +169,24 @@ class Lokacija:
         self.ime = ime
         self.povrsina = povrsina
         self.zivali = zivali
+
+    ###############
+
+    def v_slovar(self):
+        return {
+            "ime": self.ime,
+            "povrsina": self.povrsina,
+            "zivali": [zival.v_slovar() for zival in self.zivali]
+        }
+    
+    @staticmethod
+    def iz_slovarja(slovar):
+        ime = slovar["ime"]
+        povrsina = slovar["povrsina"]
+        zivali = [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["zivali"]]
+        return Lokacija(ime, povrsina, zivali)
+
+    ###############
 
     def stevilo_zivali(self):
         return len(self.zivali)
@@ -183,19 +210,6 @@ class Lokacija:
         for zival in self.zivali:
             premakni_zival(self, lok2, zival)
 
-    def v_slovar(self):
-        return {
-            "ime": self.ime,
-            "povrsina": self.povrsina,
-            "zivali": [zival.v_slovar() for zival in self.zivali]
-        }
-    
-    @staticmethod
-    def iz_slovarja(slovar):
-        ime = slovar["ime"]
-        povrsina = slovar["povrsina"]
-        zivali = [Zival.iz_slovarja(zival_sl) for zival_sl in slovar["zivali"]]
-        return Lokacija(ime, povrsina, zivali)
 
 def druga_lokacija(lok1, lok2):
     """Premakne celo čredo na drugo lokacijo"""
@@ -215,21 +229,25 @@ class Delavec:
     def __init__(self, ime, ure):
         self.ime = ime
         self.ure = ure
-    
-    def dodaj_delovni_dan(self, datum, ure_kmet, ure_gozd):
-        self.ure.append(DelovniDan(datum, ure_kmet, ure_gozd))
+
+    ###############
 
     def v_slovar(self):
         return {
             "ime": self.ime,
             "ure": [delovni_dan.v_slovar() for delovni_dan in self.ure]
-    }
+        }
     
     @staticmethod
     def iz_slovarja(slovar):
         ime = slovar["ime"]
         ure = [DelovniDan.iz_slovarja(dan_sl) for dan_sl in slovar["ure"]]
         return Delavec(ime, ure)
+
+    ############### 
+
+    def dodaj_delovni_dan(self, datum, ure_kmet, ure_gozd):
+        self.ure.append(DelovniDan(datum, ure_kmet, ure_gozd))
 
     def povzetek_ur(self, zacetni_datum, koncni_datum):
         """Izračuna število posameznih ur od zacetni_datum do koncni_datum (brez njega)"""
@@ -248,6 +266,9 @@ class DelovniDan:
         self.kmetijstvo = ure_kmet
         self.gozdarstvo = ure_gozd
     
+    
+    ###############
+
     def v_slovar(self):
         return {
             "datum": self.datum.isoformat() if self.datum else None,
@@ -264,30 +285,6 @@ class DelovniDan:
         )
 
 ###############################################################################################################
-
-class Dobrina:
-    def __init__(self, tip, kolicina, enote):
-        self.tip = tip
-        self.kolicina = kolicina
-        self.enote = enote
-
-    def dodaj(self, kolicina):
-        self.kolicina += kolicina
-
-    def v_slovar(self):
-        return {
-            "tip": self.tip,
-            "kolicina": self.kolicina,
-            "enote": self.enote
-        }
-
-    @staticmethod
-    def iz_slovarja(slovar):
-        tip = slovar["tip"]
-        kolicina = slovar["kolicina"]
-        enote = slovar["enote"]
-        return Dobrina(tip, kolicina, enote)
-
 
 def najdi_zival(stevilka, register):
     for zival in register:
@@ -310,6 +307,6 @@ def st_lokacij(lokacije):
 
 
 
-stanje = Gospodarstvo.iz_datoteke("stanja_uporabnikov/100475958")
+stanje = Gospodarstvo.iz_datoteke(100475958)
 register = stanje.register
 lokacije = stanje.lokacije
