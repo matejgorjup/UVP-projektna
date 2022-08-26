@@ -1,5 +1,6 @@
 {
     "mid": 100475958,
+    "geslo": "hlipink",
     "register": [
         {
             "id": "SI12341237",
@@ -185,23 +186,6 @@
                     "gozdarstvo": 1
                 }
             ]
-        }
-    ],
-    "dobrine": [
-        {
-            "tip": "gnoj",
-            "kolicina": 45,
-            "enote": "m3"
-        },
-        {
-            "tip": "bale",
-            "kolicina": 105,
-            "enote": "kos"
-        },
-        {
-            "tip": "drva",
-            "kolicina": 205,
-            "enote": "m3"
         }
     ]
 }

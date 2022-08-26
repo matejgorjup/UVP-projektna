@@ -13,49 +13,10 @@
     </div>
 </section>
 
-<section class="section">
-    <div class="buttons">
-        <button class="button is-info">Povzetek delovnih dni</button>
-    </div>
-</section>
-
-<section class="section">   
-    % for delavec in delovna_sila: 
-        <div class="box">
-            <span class="tag is-info is-medium">Delavec: {{delavec.ime}}</span>
-            <hr>
-            <table class="table">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Datum</th>
-                    <th>Št. delovnih ur na kmetiji</th>
-                    <th>Št. delovnih ur v gozdu</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                    % for dd in delavec.ure:
-                    <tr>
-                      <td><a class="tag is-delete"></a></td>
-                      <td>{{dd.datum}}</td>
-                      <td>{{dd.kmetijstvo}}</td>
-                      <td>{{dd.gozdarstvo}}</td>
-                    </tr>
-                    % end  
-                </tbody>
-              </table>
-            <hr>
-
-        </div>
-    % end
-
-</section>
-
 <section>
 
 
-% for delavec in delovna_sila:
+% for indeks_delavca, delavec in enumerate(delovna_sila):
 <div class="card">
   <div class="card-content">
     <div class="media">
@@ -66,50 +27,54 @@
       </div>
       <div class="media-content">
         <p class="title is-4">{{delavec.ime}}</p>
-        <p class="subtitle is-6"><a href="http://127.0.0.1:8080/delovne-ure/" style="text-decoration: none;">Oglej si profil</a></p>
+        <p class="subtitle is-6"><a href="/delovne-ure/delavec/{{indeks_delavca}}/" style="text-decoration: none;">Oglej si profil</a></p>
       </div>
     </div>
-
-    <div>
-
-      <label class="label">Vnos ur</label>
-      <div class="field-body">
-          <div class="field">
-            <p class="control is-expanded">
-              <input class="input" type="date" name="datum" placeholder="Datum">
-              <span class="icon is-small is-left">
-              </span>
-            </p>
-          </div>
-          <div class="field">
-              <p class="control is-expanded">
-                <input class="input" type="text" name="ure_kmet" placeholder="Število ur na kmetiji">
-                <span class="icon is-small is-left">
-                </span>
+  </div>
+  <hr>
+  <div class="card-content">            
+    <form method="POST">
+      <div>
+          <div class="field-body">
+              <div class="field">
+                <p class="control is-expanded">
+                  <label class="label">Poizvedba stanja delovnih ur od vključno datuma</label>
+                  <input class="input" type="date" name="datum_od">
+                  <span class="icon is-small is-left">
+                  </span>
+                </p>
+              </div>
+              <div class="field">
+                <p class="control is-expanded">
+                  <label class="label">do vključno datuma</label>
+                  <input class="input" type="date" name="datum_do">
+                  <span class="icon is-small is-left">
+                  </span>
+                </p>
+              </div>
+              </div>
+              <p class="control">
+                  <a class="button is-info">Poizvedi</a>
               </p>
           </div>
-          <div class="field">
-              <p class="control is-expanded">
-                <input class="input" type="text" name="ure_gozd" placeholder="Število ur v gozdu">
-                <span class="icon is-small is-left">
-                </span>
-              </p>
-          </div>
-          <p class="control">
-              <a class="button is-info">Vnesi</a>
-          </p>
-      </div>
-
-
-    </div>
+    </form>
   </div>
 </div>
 
 <hr> 
 % end
 
-<section class="section">
-  <div class="buttons">
-      <button class="button is-info">Dodaj delavca</button>
-  </div>
-</section>
+<div class="box">
+  <form method="POST" action="/delovne-ure/dodaj/">
+    <div class="field">
+        <label class="label">Ime</label>
+        <div class="control">
+          <input class="input" type="text" name="ime">
+        </div>
+    </div>
+
+    <div class="control">
+      <button class="button is-info">Dodaj</button>
+    </div>
+  </form>
+</div>

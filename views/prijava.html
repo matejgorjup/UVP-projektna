@@ -19,10 +19,17 @@
   <div class="columns is-centered">
     <div class="column is-half">
       <form class="box" method="POST">
+        % if error:
+        <article class="message is-danger">
+            <div class="message-body">
+                {{error}}
+            </div>
+        </article>
+        % end  
         <div class="field">
           <label class="label">MID</label>
           <div class="control">
-            <input class="input" type="email" name="uporabnisko_ime" placeholder="npr. 100987654">
+            <input class="input" type="text" name="mid" placeholder="npr. 100987654">
           </div>
         </div>
       

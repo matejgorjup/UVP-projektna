@@ -1,3 +1,4 @@
+% rebase('base.html')
 
 <section class="hero is-link welcome is-small">
     <div class="hero-body">
@@ -24,11 +25,45 @@
                 </div>
                 <div class="media-content">
                   <p class="title is-4">{{delavec.ime}}</p>
-                  <p class="subtitle is-6"><a href="http://127.0.0.1:8080/delovne-ure/" style="text-decoration: none;">Oglej si profil</a></p>
                 </div>
               </div>
-          
-              <div>
+              
+            </div>
+            <div class="card-content">
+
+            
+              <form method="POST">
+                <div>
+                    <label class="label">Vnos ur</label>
+                    <div class="field-body">
+                        <div class="field">
+                          <p class="control is-expanded">
+                            <input class="input" type="date" name="datum" placeholder="Datum">
+                            <span class="icon is-small is-left">
+                            </span>
+                          </p>
+                        </div>
+                        <div class="field">
+                            <p class="control is-expanded">
+                              <input class="input" type="text" name="ure_kmet" placeholder="Število ur na kmetiji">
+                              <span class="icon is-small is-left">
+                              </span>
+                            </p>
+                        </div>
+                        <div class="field">
+                            <p class="control is-expanded">
+                              <input class="input" type="text" name="ure_gozd" placeholder="Število ur v gozdu">
+                              <span class="icon is-small is-left">
+                              </span>
+                            </p>
+                        </div>
+                        <p class="control">
+                            <a class="button is-info">Vnesi</a>
+                        </p>
+                    </div>
+              </form>
+            </div>
+              <div class="card-content">
                 
                 <table class="table">
                     <thead>
