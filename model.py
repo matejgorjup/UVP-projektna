@@ -1,5 +1,6 @@
 import datetime
 from datetime import date
+import random
 import json
 import hashlib
 
@@ -70,15 +71,12 @@ class Gospodarstvo:
             raise ValueError("Geslo je napačno! Poskusite znova.")
 
     def zakodiraj_geslo(geslo):
-        salt = str(random.getrandbits(42))
-        strong = salt + geslo
-        mash = hashlib.blake2b()
-        mash.update(strong.encode(encoding="utf-8"))
-        return f"{salt}${mash.hexdigest()}"
+        code = hashlib.blake2b()
+        code.update(geslo.encode(encoding="utf-8"))
+        return code.hexdigest()
 
     def preveri_geslo(self, geslo):
-        salt, _ = self.geslo.split("$")
-        return self.geslo == Gospodarstvo.zakodiraj_geslo(geslo, salt)
+        return self.geslo == Gospodarstvo.zakodiraj_geslo(geslo)
 
     ###############
 
@@ -113,6 +111,9 @@ class Gospodarstvo:
 
     def dodaj_delavca(self, delavec):
         self.delovna_sila.append(delavec)
+
+    def odstrani_delavca(self, delavec):
+        self.delovna_sila.remove(delavec)
 
     def stevilo_razporejenih(self):
         stevilo = 0
@@ -198,24 +199,19 @@ class Lokacija:
 
     def odstrani_zival(self, zival):
         """Odstrani žival iz črede"""
-        self.zivali.remove(zival)
+        zival_na_lok = najdi_zival(zival.id, self.zivali)
+        self.zivali.remove(zival_na_lok)
         zival.lokacija = None
 
     def premakni_zival(self, lok2, zival):
         self.odstrani_zival(zival)
-        lok2.dodaj_zival(zival)
         zival.lokacija = lok2.ime
+        lok2.dodaj_zival(zival)  
     
-    def premakni_vse(self, lok2):
+    def premakni_vse_zivali(self, lok2, register):
         for zival in self.zivali:
-            premakni_zival(self, lok2, zival)
-
-
-def druga_lokacija(lok1, lok2):
-    """Premakne celo čredo na drugo lokacijo"""
-    for glava in lok1.zivali:
-        lok2.dodaj_zival(glava)
-        lok1.odstrani_zival(glava)
+            zival_reg = najdi_zival(zival.id, register)
+            self.premakni_zival(lok2, zival_reg)
 
 
 def nerazporejene_zivali(gospodarstvo):
@@ -248,6 +244,10 @@ class Delavec:
 
     def dodaj_delovni_dan(self, datum, ure_kmet, ure_gozd):
         self.ure.append(DelovniDan(datum, ure_kmet, ure_gozd))
+        self.ure.sort(key=lambda x: x.datum)
+    
+    def odstrani_delovni_dan(self, dd):
+        self.ure.remove(dd)
 
     def povzetek_ur(self, zacetni_datum, koncni_datum):
         """Izračuna število posameznih ur od zacetni_datum do koncni_datum (brez njega)"""
@@ -296,6 +296,16 @@ def najdi_lokacijo(imme, lokacije):
     for lok in lokacije:
         if lok.ime == imme:
             return lok
+
+def najdi_dd(datumm, delovne_ure):
+    for dd in delovne_ure:
+        if dd.datum == datumm:
+            return dd
+
+def najdi_delavca(imme, delavci):
+    for delavec in delavci:
+        if delavec.ime == imme:
+            return delavec
 
 
 def st_lokacij(lokacije):
