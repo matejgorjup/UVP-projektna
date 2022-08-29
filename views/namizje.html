@@ -40,7 +40,9 @@
 
 <hr>
 
-<section>
+
+<div class="box">
+    <label class="label">Obvestila in opozorila</label>
     % if nerazporejeno:
     <article class="message is-danger">
         <div class="message-header">
@@ -50,5 +52,22 @@
             V registru imate živali, ki niso razporejene po lokacijah.
         </div>
     </article>
+    % else:
+    <p>Trenutno nič novega.</p>
     % end    
+</div>
+
+
+<!--
+<section>
+    <h1>Statistika trenutnega stanja živine</h1>
+    <ul>
+        <li>Mlado govedo staro do 3 mesece:</li>
+        <li>Mlado govedo staro od 3 mesecev do 1 leta:</li>
+        <li>Moško govedo staro od 1 do 2 let:</li>
+        <li>Žensko govedo staro od 1 do 2 let:</li>
+        <li>Moško govedo starejše od 2 let:</li>
+        <li>Žensko govedo starejše od 2 let:</li>
+    </ul>    
 </section>
+-->

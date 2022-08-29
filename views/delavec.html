@@ -15,30 +15,27 @@
 
 
 <section>          
-          <div class="card">
-            <div class="card-content">
-              <div class="media">
-                <div class="media-left">
-                  <figure class="image is-48x48">
-                    <img src="https://icons-for-free.com/iconfiles/png/512/person-1324760545186718018.png" alt="Placeholder image">
-                  </figure>
-                </div>
-                <div class="media-content">
-                  <p class="title is-4">{{delavec.ime}}</p>
-                </div>
-              </div>
-              
-            </div>
-            <div class="card-content">
-
-            
-              <form method="POST">
+  <div class="card">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48">
+            <img src="https://icons-for-free.com/iconfiles/png/512/person-1324760545186718018.png" alt="Placeholder image">
+          </figure>
+        </div>
+        <div class="media-content">
+          <p class="title is-4">{{delavec.ime}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="card-content">
+      <form method="POST" action="/delovne-ure/delavec/{{indeks_delavca}}/">
                 <div>
                     <label class="label">Vnos ur</label>
                     <div class="field-body">
                         <div class="field">
                           <p class="control is-expanded">
-                            <input class="input" type="date" name="datum" placeholder="Datum">
+                            <input class="input" type="date" required name="datum" placeholder="Datum">
                             <span class="icon is-small is-left">
                             </span>
                           </p>
@@ -58,46 +55,52 @@
                             </p>
                         </div>
                         <p class="control">
-                            <a class="button is-info">Vnesi</a>
+                            <button class="button is-link" type="submit">Vnesi</button>
                         </p>
                     </div>
-              </form>
+      </form>
+    </div>
+    <div class="card-content">
+      <label class="label">Prikaz zadnjih 35 vnosov</label>
+      <table class="table">
+          <thead>
+            <tr>
+              <th>Datum</th>
+              <th>Št. delovnih ur na kmetiji</th>
+              <th>Št. delovnih ur v gozdu</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+              % n = min(len(delavec.ure), 35)
+              % for dd in delavec.ure[-n:]:
+              <tr>
+                <td>{{dd.datum}}</td>
+                <td>{{dd.kmetijstvo}}</td>
+                <td>{{dd.gozdarstvo}}</td>
+              </tr>
+              % end  
+          </tbody>
+        </table>
+    </div>
+    <div class="card-content">
+      <form method="POST" action="/delovne-ure/delavec/izbris/{{indeks_delavca}}/">
+        <div>  
+          <label class="label">Izbriši vnos za dan</label>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded">
+                <input class="input" type="date" required name="datum" placeholder="Datum">
+                <span class="icon is-small is-left">
+                </span>
+              </p>
             </div>
-              <div class="card-content">
-                
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th>Datum</th>
-                        <th>Št. delovnih ur na kmetiji</th>
-                        <th>Št. delovnih ur v gozdu</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                        % for dd in delavec.ure:
-                        <tr>
-                          <td><a class="tag is-delete"></a></td>
-                          <td>{{dd.datum}}</td>
-                          <td>{{dd.kmetijstvo}}</td>
-                          <td>{{dd.gozdarstvo}}</td>
-                        </tr>
-                        % end  
-                    </tbody>
-                  </table>
-                
-          
-          
-              </div>
-            </div>
-          </div>
-
-
-
-      
-      
+            <p class="control">
+                <button class="button is-danger" type="submit">Izbriši</button>
+            </p>
           </div>
         </div>
-      </div>
+    </form>
+    </div>
+  </div>
 </section>
