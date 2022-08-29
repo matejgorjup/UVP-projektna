@@ -1,6 +1,6 @@
 import bottle
 from datetime import datetime
-from model import Gospodarstvo, Lokacija, Zival, Delavec, DelovniDan, nerazporejene_zivali, najdi_zival, najdi_lokacijo, st_lokacij
+from model import Gospodarstvo, Lokacija, Zival, Delavec, DelovniDan, nerazporejene_zivali, najdi_zival, najdi_lokacijo, najdi_dd, najdi_delavca, st_lokacij
 
 ################################################################################
 
@@ -150,14 +150,16 @@ def razporejanje():
     shrani_stanje(stanje)
     bottle.redirect("/lokacije/")
 
-@bottle.post("/lokacije/<lok.ime>")
-def premik():
+@bottle.post("/lokacije/<indeks_lokacije:int>/")
+def premik(indeks_lokacije):
 #    stanje = stanje_trenutnega_uporabnika()
     id_zivali = bottle.request.forms.getunicode("zival")
-    zival = (najdi_zival(id_zivali, stanje.register))
-    od = najdi_lokacijo(bottle.request.forms.getunicode("lokacija_from", stanje.lokacije))
-    do = najdi_lokacijo(bottle.request.forms.getunicode("lokacija_to", stanje.lokacije))
-    od.premakni_zival(do)
+    zival = najdi_zival(id_zivali, stanje.register)
+    od = bottle.request.forms.getunicode("lokacija_from")
+    do = bottle.request.forms.getunicode("lokacija_to")
+    lok1 = najdi_lokacijo(od, stanje.lokacije)
+    lok2 = najdi_lokacijo(do, stanje.lokacije)
+    lok1.premakni_zival(lok2, zival)
 
     shrani_stanje(stanje)
     bottle.redirect("/lokacije/")
@@ -165,11 +167,11 @@ def premik():
 @bottle.post("/lokacije/veliki-premik/")
 def veliki_premik():
 #    stanje = stanje_trenutnega_uporabnika()
-    odd = bottle.request.forms.getunicode("lokacija_od")
-    doo = bottle.request.forms.getunicode("lokacija_do")
-    lok1 = najdi_lokacijo(odd, stanje.lokacije)
-    lok2 = najdi_lokacijo(doo, stanje.lokacije)
-    lok1.premakni_vse(lok2)
+    od = bottle.request.forms.getunicode("lokacija_od")
+    do = bottle.request.forms.getunicode("lokacija_do")
+    lok1 = najdi_lokacijo(od, stanje.lokacije)
+    lok2 = najdi_lokacijo(do, stanje.lokacije)
+    lok1.premakni_vse_zivali(lok2, stanje.register)
 
     shrani_stanje(stanje)
     bottle.redirect("/lokacije/")
@@ -190,6 +192,15 @@ def dodaj_lokacijo():
     shrani_stanje(stanje)
     bottle.redirect("/lokacije/")
 
+@bottle.post("/lokacije/odstrani-lokacijo/")
+def odstrani_lokacijo():
+#    stanje = stanje_trenutnega_uporabnika()
+    ime = bottle.request.forms.getunicode("ime")
+    lok = najdi_lokacijo(ime, stanje.lokacije)
+    stanje.odstrani_lokacijo(lok)
+
+    shrani_stanje(stanje)
+    bottle.redirect("/lokacije/")
 
 ################################################################################
 
@@ -201,34 +212,52 @@ def delovne_ure():
         delovna_sila = stanje.delovna_sila
     )
 
-
-
 @bottle.get("/delovne-ure/delavec/<indeks_delavca:int>/")
 def delavec(indeks_delavca):
 #    stanje = stanje_trenutnega_uporabnika()
     pregled = stanje.delovna_sila[indeks_delavca]
     return bottle.template(
         'delavec.html',
-        delavec = pregled
+        delavec = pregled,
+        indeks_delavca = int(indeks_delavca)
     )
 
 @bottle.post("/delovne-ure/delavec/<indeks_delavca:int>/")
 def opravljeno(indeks_delavca):
 #    stanje = stanje_trenutnega_uporabnika()
-    datum = bottle.request.forms.getunicode("datum")
-    ure_kmet = bottle.request.forms.getunicode("ure_kmet")
+    datum = datetime.strptime(bottle.request.forms.getunicode("datum"), '%Y-%m-%d').date()
+    ure_kmet = int(bottle.request.forms.getunicode("ure_kmet"))
     ure_gozd = bottle.request.forms.getunicode("ure_gozd")
-    delavec = stanje.delovna_sila[index_delavca]
+    delavec = stanje.delovna_sila[indeks_delavca]
     delavec.dodaj_delovni_dan(datum, ure_kmet, ure_gozd)
 
     shrani_stanje(stanje)
-    bottle.redirect("/delovne-ure/delavec/<indeks_delavca:int>/")
+    bottle.redirect(f"/delovne-ure/delavec/{indeks_delavca}/")
+
+@bottle.post("/delovne-ure/delavec/izbris/<indeks_delavca:int>/")
+def izbris(indeks_delavca):
+#    stanje = stanje_trenutnega_uporabnika()
+    datum = datetime.strptime(bottle.request.forms.getunicode("datum"), '%Y-%m-%d').date()
+    delavec = stanje.delovna_sila[indeks_delavca]
+    delavec.odstrani_delovni_dan(najdi_dd(datum, delavec.ure))
+
+    shrani_stanje(stanje)
+    bottle.redirect(f"/delovne-ure/delavec/{indeks_delavca}/")
 
 @bottle.post("/delovne-ure/dodaj/")    
 def dodaj():
 #    stanje = stanje_trenutnega_uporabnika()
     ime = bottle.request.forms.getunicode("ime")
     stanje.dodaj_delavca(Delavec(ime, []))
+
+    shrani_stanje(stanje)
+    bottle.redirect("/delovne-ure/")
+
+@bottle.post("/delovne-ure/odstrani/")
+def odstrani():
+#    stanje = stanje_trenutnega_uporabnika()
+    delavec = najdi_delavca(bottle.request.forms.getunicode("ime"), stanje.delovna_sila)
+    stanje.odstrani_delavca(delavec)
 
     shrani_stanje(stanje)
     bottle.redirect("/delovne-ure/")
