@@ -12,6 +12,11 @@
 </section>
 
 <section class="section">
+  % if error:
+  <article class="message is-danger">
+    <div class="message-body">{{error}}</div>
+  </article>
+  % end  
   <div class="box">
     <form method="POST">
       <div class="field">
@@ -37,9 +42,9 @@
         <div class="control">
           <div class="select">
             <select name="spol">
-              <option value="" disabled selected></option>
-              <option value="M">M</option>
-              <option value="Z">Z</option>
+              <option disabled selected></option>
+              <option>M</option>
+              <option>Ž</option>
             </select>
           </div>
         </div>

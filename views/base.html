@@ -13,21 +13,29 @@
 </head>
 
 <body>
-  <!-- START NAV -->
-  <nav class="navbarend is-info">
-    <div class="container">
-      <div id="navMenu" class="navbar-menu is-right">
-        <div class="navbar-start">
-          <button class="button is-link is-light"><a href="/odjava/" style="text-decoration: none;">Odjavi</a></button>
-        </div>
+	<div class="container">
+	  <nav class="navbar is-link" role="navigation" aria-label="main navigation">
+	  	<div class="navbar-brand">
+	  	  <a class="navbar-item has-background-link" href="/">
+	  	  	<h1 style=font-size:150% class="has-text-white"><b>Kmetijsko knjigovodstvo</b></h1>
+	  	  </a>
       </div>
-    </div>
-  </nav>
-  <!-- END NAV -->
+	  	<div class="navbar-end">
+	  		<div class="navbar-item">
+	  		  <div class="buttons">
+            <a class="button is-link is-light" href="/odjava/" style="text-decoration: none;">Odjavi</a>
+	  		  </div>
+	  		</div>
+	  	</div>
+	  </nav>
+  </div>
+  
+  <br>
+  <br>
 
   <div class="container">
     <div class="columns">
-      <div class="column is-3 ">
+      <div class="column is-2 ">
         <aside>
           <p class="menu-label">Osnovno</p>
             <ul class="menu-list">
@@ -45,7 +53,7 @@
             </ul>
         </aside>
       </div>
-      <div class="column is-9">
+      <div class="column is-10">
           {{!base}}
       </div>
     </div>
