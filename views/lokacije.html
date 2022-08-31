@@ -78,14 +78,6 @@
 </div>
 % end
 
-<div>
-  <section class="section">
-    <div class="buttons">
-      <button class="button is-link is-light"><a href="http://127.0.0.1:8080/lokacije/dodaj-lokacijo/" style="text-decoration: none;">Dodaj lokacijo</a></button>
-    </div>
-  </section>  
-</div>
-
 <div class="box">
 % for indeks_lokacije, lok in enumerate(lokacije): 
   % if lok.stevilo_zivali() == 0:
@@ -199,7 +191,14 @@
     </div>
   </form>
 </div>
-<hr>
+
+<div>
+  <section class="section">
+    <div class="buttons">
+      <button class="button is-link is-light"><a href="http://127.0.0.1:8080/lokacije/dodaj-lokacijo/" style="text-decoration: none;">Dodaj lokacijo</a></button>
+    </div>
+  </section>  
+</div>
 
 <div class="box">
   <form method="POST" action="/lokacije/odstrani-lokacijo/">

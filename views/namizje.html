@@ -45,7 +45,18 @@
       V registru imate živali, ki niso razporejene po lokacijah.
     </div>
   </article>
-  % else:
-  <p>Trenutno nič novega.</p>
-  % end    
+  % end     
+  % for d in delo:
+    % if d.manjkajoci_vnos():
+    <article class="message is-warning">
+      <div class="message-header">
+        <p>Opomnik</p>
+      </div>
+      <div class="message-body">
+        Za delavca po imenu {{d.ime}} še nimate vnešenih ur za današnji dan.
+      </div>
+    </article>
+    % end
+  % end
+ 
 </div>
