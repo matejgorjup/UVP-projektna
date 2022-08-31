@@ -77,7 +77,8 @@ def namizje():
         nerazporejeno = stanje.nerazporejene_zivali(), 
         st_zivali = len(stanje.register),
         st_lokacij = stanje.st_lokacij(),
-        mid = stanje.mid
+        mid = stanje.mid,
+        delo = stanje.delovna_sila
         )
 
 ################################################################################
@@ -115,7 +116,7 @@ def dodaj_zival():
     oce = bottle.request.forms.getunicode("oce")
     prihod = datetime.strptime(bottle.request.forms.getunicode("datum_prihoda"), '%Y-%m-%d').date()
 
-    if id == najdi(id, stanje.register, "id").id:
+    if najdi(id, stanje.register, "id"):
         return bottle.template("register_dodaj_zival.html", error="Žival s to ID številko že obstaja v registru.")
     try: 
         stanje.prihod_zivali(Zival(id, ime, rojstvo, spol, pasma, prihod, mati, oce, None))

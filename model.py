@@ -34,7 +34,7 @@ class Gospodarstvo:
 
     def v_datoteko(self):
         path = f"stanja_uporabnikov/{self.mid}.json"
-        with open(path, "w") as dat:
+        with open(path, "w",encoding="utf-8") as dat:
             slovar = self.v_slovar()
             json.dump(slovar, dat, indent=2, ensure_ascii=False)
 
@@ -42,7 +42,7 @@ class Gospodarstvo:
     def iz_datoteke(mid):
         try:
             path = f"stanja_uporabnikov/{mid}.json"
-            with open(path) as dat:
+            with open(path, encoding="utf-8") as dat:
                 slovar = json.load(dat)
                 return Gospodarstvo.iz_slovarja(slovar)
         except FileNotFoundError:
@@ -92,8 +92,8 @@ class Gospodarstvo:
         elif zival.lokacija == None:
             self.register.remove(zival)
         else:
-            lokacija_zivali = najdi_lokacijo(zival.lokacija, self.lokacije)
-            zival_na_lokaciji = najdi_zival(zival.id, lokacija_zivali.zivali)
+            lokacija_zivali = najdi(zival.lokacija, self.lokacije, "ime")
+            zival_na_lokaciji = najdi(zival.id, lokacija_zivali.zivali, "id")
             lokacija_zivali.odstrani_zival(zival_na_lokaciji)
             self.register.remove(zival)
 
@@ -209,7 +209,7 @@ class Lokacija:
         zival.lokacija = self.ime
 
     def odstrani_zival(self, zival):
-        zival_na_lok = najdi_zival(zival.id, self.zivali)
+        zival_na_lok = najdi(zival.id, self.zivali, "id")
         self.zivali.remove(zival_na_lok)
         zival.lokacija = None
 
@@ -220,8 +220,8 @@ class Lokacija:
     
     def premakni_vse_zivali(self, lok2, register):
         for zival in self.zivali:
-            zival_reg = najdi_zival(zival.id, register)
-            self.premakni_zival(lok2, zival_reg)
+            #zival_reg = najdi(zival.id, register, "ime")
+            self.premakni_zival(lok2, zival)
 
 ###############################################################################################################
 
@@ -264,7 +264,7 @@ class Delavec:
         return (sum_kmet, sum_gozd)
     
     def manjkajoci_vnos(self):
-        return self.ure[-1].datum != date.today
+        return (self.ure[-1].datum != datetime.datetime.now().date()) and (datetime.datetime.now().time() > datetime.time(20, 0, 0, 0))
 
 ###############################################################################################################
 
@@ -299,9 +299,11 @@ def najdi(iskano, seznam, atribut):
     for i in range(0, len(seznam)):
         if getattr(seznam[i], atribut) == iskano:
             return seznam[i]
+    else:
+        return False
 
 
 
-stanje = Gospodarstvo.iz_datoteke(100475958)
+stanje = Gospodarstvo.iz_datoteke(100123456)
 register = stanje.register
 lokacije = stanje.lokacije
