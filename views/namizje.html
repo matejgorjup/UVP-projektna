@@ -1,73 +1,52 @@
 % rebase('base.html')
 
 <section class="hero is-link welcome is-small">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Pozdravljen uporabnik!
-            </h1>
-            <h2 class="subtitle">
-                Dobrodošel na portalu za kmetijsko knjigovodstvo!
-            </h2>
-        </div>
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Pozdravljen uporabnik!</h1>
+      <h2 class="subtitle">Dobrodošel na portalu za kmetijsko knjigovodstvo!</h2>
     </div>
+  </div>
 </section>
-
 <hr>
 
 <section class="info-tiles">
-    <div class="tile is-ancestor has-text-centered">
-        <div class="tile is-parent">
-            <article class="tile is-child box">
-                <p class="title">{{mid}}</p>
-                <p class="subtitle">MID številka</p>
-            </article>         
-        </div>
-        <div class="tile is-parent">   
-            <article class="tile is-child box">
-                <p class="title">{{st_zivali}}</p>
-                <p class="subtitle">Št. živali</p>
-            </article>
-        </div>
-        <div class="tile is-parent">
-            <article class="tile is-child box">
-                <p class="title">{{st_lokacij}}</p>
-                <p class="subtitle">Odprte lokacije</p>
-            </article>
-        </div>
+  <div class="tile is-ancestor has-text-centered">
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">{{mid}}</p>
+        <p class="subtitle">MID številka</p>
+      </article>         
     </div>
+    <div class="tile is-parent">   
+      <article class="tile is-child box">
+        <p class="title">{{st_zivali}}</p>
+        <p class="subtitle">Št. živali</p>
+      </article>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child box">
+        <p class="title">{{st_lokacij}}</p>
+        <p class="subtitle">Odprte lokacije</p>
+      </article>
+    </div>
+  </div>
 </section>
-
 <hr>
 
-
 <div class="box">
-    <label class="label">Obvestila in opozorila</label>
-    % if nerazporejeno:
-    <article class="message is-danger">
-        <div class="message-header">
-            <p>Opozorilo</p>
-        </div>
-        <div class="message-body">
-            V registru imate živali, ki niso razporejene po lokacijah.
-        </div>
-    </article>
-    % else:
-    <p>Trenutno nič novega.</p>
-    % end    
+  <label class="label">Obvestila in opozorila</label>
+  % if nerazporejeno:
+  <article class="message is-danger">
+    <div class="message-header">
+      <p>Opozorilo</p>
+    </div>
+    <div class="message-body">
+      V registru imate živali, ki niso razporejene po lokacijah.
+    </div>
+  </article>
+  % end
+  % else:
+  <p>Trenutno nič novega.</p>
+  % end    
 </div>
-
-
-<!--
-<section>
-    <h1>Statistika trenutnega stanja živine</h1>
-    <ul>
-        <li>Mlado govedo staro do 3 mesece:</li>
-        <li>Mlado govedo staro od 3 mesecev do 1 leta:</li>
-        <li>Moško govedo staro od 1 do 2 let:</li>
-        <li>Žensko govedo staro od 1 do 2 let:</li>
-        <li>Moško govedo starejše od 2 let:</li>
-        <li>Žensko govedo starejše od 2 let:</li>
-    </ul>    
-</section>
--->

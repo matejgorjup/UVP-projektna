@@ -1,18 +1,15 @@
 % rebase('base.html')
 
 <section class="hero is-link welcome is-small">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Delovne ure > Delavec
-            </h1>
-            <h2 class="subtitle">
-                Navodila za uporabo
-            </h2>
-        </div>
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Delovne ure > Delavec</h1>
+      <h3>
+        Vnesite dnevno stanje opravljenih ur. Morebitne napake lahko popravite spodaj.
+      </h3>
     </div>
+  </div>
 </section>
-
 
 <section>          
   <div class="card">
@@ -28,61 +25,64 @@
         </div>
       </div>
     </div>
+
     <div class="card-content">
       <form method="POST" action="/delovne-ure/delavec/{{indeks_delavca}}/">
-                <div>
-                    <label class="label">Vnos ur</label>
-                    <div class="field-body">
-                        <div class="field">
-                          <p class="control is-expanded">
-                            <input class="input" type="date" required name="datum" placeholder="Datum">
-                            <span class="icon is-small is-left">
-                            </span>
-                          </p>
-                        </div>
-                        <div class="field">
-                            <p class="control is-expanded">
-                              <input class="input" type="text" name="ure_kmet" placeholder="Število ur na kmetiji">
-                              <span class="icon is-small is-left">
-                              </span>
-                            </p>
-                        </div>
-                        <div class="field">
-                            <p class="control is-expanded">
-                              <input class="input" type="text" name="ure_gozd" placeholder="Število ur v gozdu">
-                              <span class="icon is-small is-left">
-                              </span>
-                            </p>
-                        </div>
-                        <p class="control">
-                            <button class="button is-link" type="submit">Vnesi</button>
-                        </p>
-                    </div>
+        <div>
+          <label class="label">Vnos ur</label>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded">
+                <input class="input" type="date" required name="datum" placeholder="Datum">
+                <span class="icon is-small is-left"></span>
+              </p>
+            </div>
+            <div class="field">
+                <p class="control is-expanded">
+                  <input class="input" type="text" name="ure_kmet" placeholder="Število ur na kmetiji">
+                  <span class="icon is-small is-left">
+                  </span>
+                </p>
+            </div>
+            <div class="field">
+                <p class="control is-expanded">
+                  <input class="input" type="text" name="ure_gozd" placeholder="Število ur v gozdu">
+                  <span class="icon is-small is-left">
+                  </span>
+                </p>
+            </div>
+            <p class="control">
+              <button class="button is-link" type="submit">Vnesi</button>
+            </p>
+          </div>
+        </div>
       </form>
     </div>
+
     <div class="card-content">
       <label class="label">Prikaz zadnjih 35 vnosov</label>
       <table class="table">
-          <thead>
+        <thead>
+          <tr>
+            <th>Datum</th>
+            <th>Št. delovnih ur na kmetiji</th>
+            <th>Št. delovnih ur v gozdu</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+            % n = min(len(delavec.ure), 35)
+            % for dd in delavec.ure[-n:]:
             <tr>
-              <th>Datum</th>
-              <th>Št. delovnih ur na kmetiji</th>
-              <th>Št. delovnih ur v gozdu</th>
-              <th></th>
+              <td>{{dd.datum}}</td>
+              <td>{{dd.kmetijstvo}}</td>
+              <td>{{dd.gozdarstvo}}</td>
             </tr>
-          </thead>
-          <tbody>
-              % n = min(len(delavec.ure), 35)
-              % for dd in delavec.ure[-n:]:
-              <tr>
-                <td>{{dd.datum}}</td>
-                <td>{{dd.kmetijstvo}}</td>
-                <td>{{dd.gozdarstvo}}</td>
-              </tr>
-              % end  
-          </tbody>
-        </table>
+            % end  
+        </tbody>
+      </table>
     </div>
+
     <div class="card-content">
       <form method="POST" action="/delovne-ure/delavec/izbris/{{indeks_delavca}}/">
         <div>  
@@ -100,7 +100,7 @@
             </p>
           </div>
         </div>
-    </form>
+      </form>
     </div>
   </div>
 </section>

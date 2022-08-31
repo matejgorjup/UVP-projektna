@@ -1,92 +1,81 @@
 % rebase('base.html')
 
 <section class="hero is-link welcome is-small">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Register > Dodajanje živali
-            </h1>
-            <h2 class="subtitle">
-                Navodila za uporabo
-            </h2>
-        </div>
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Register > Dodajanje živali</h1>
+      <h3>
+        Dodajte posamezno žival z njenimi osnovnimi podatki.
+      </h3>
     </div>
+  </div>
 </section>
+
 <section class="section">
-  
-    <div class="box">
+  <div class="box">
     <form method="POST">
-        <div class="field">
-            <label class="label">ID številka</label>
-            <div class="control">
-              <input class="input" type="text" name="id" required placeholder="npr. SI98765432">
-            </div>
+      <div class="field">
+        <label class="label">ID številka</label>
+        <div class="control">
+          <input class="input" type="text" name="id" required placeholder="npr. SI98765432">
         </div>
-
-        <div class="field">
-          <label class="label">Ime</label>
-          <div class="control">
-            <input class="input" type="text" name="ime" placeholder="npr. Cika">
+      </div>
+      <div class="field">
+        <label class="label">Ime</label>
+        <div class="control">
+          <input class="input" type="text" name="ime" placeholder="npr. Cika">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Datum rojstva</label>
+        <div class="control">
+          <input class="input" type="date" name="datum_rojstva" required placeholder="llll-mm-dd">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Spol</label>
+        <div class="control">
+          <div class="select">
+            <select name="spol">
+              <option value="" disabled selected></option>
+              <option value="M">M</option>
+              <option value="Z">Z</option>
+            </select>
           </div>
         </div>
-
-        <div class="field">
-            <label class="label">Datum rojstva</label>
-            <div class="control">
-              <input class="input" type="date" name="datum_rojstva" required placeholder="llll-mm-dd">
-            </div>
+      </div>
+      <div class="field">
+        <label class="label">Pasma</label>
+        <div class="control">
+          <input class="input" type="text" name="pasma" placeholder="LIM">
         </div>
-
-        <div class="field">
-            <label class="label">Spol</label>
-            <div class="control">
-              <div class="select">
-                <select name="spol">
-                  <option value="" disabled selected></option>
-                  <option value="M">M</option>
-                  <option value="Z">Z</option>
-                </select>
-              </div>
-            </div>
+      </div>
+      <div class="field">
+        <label class="label">Mati</label>
+        <div class="control">
+          <input class="input" type="text" name="mati" placeholder="npr. SI12345678">
         </div>
-
-        <div class="field">
-            <label class="label">Pasma</label>
-            <div class="control">
-              <input class="input" type="text" name="pasma" placeholder="LIM">
-            </div>
+      </div>
+      <div class="field">
+        <label class="label">Oče</label>
+        <div class="control">
+          <input class="input" type="text" name="oce" placeholder="npr. SI96385274">
         </div>
-
-        <div class="field">
-            <label class="label">Mati</label>
-            <div class="control">
-              <input class="input" type="text" name="mati" placeholder="npr. SI12345678">
-            </div>
+      </div>
+      <div class="field">
+        <label class="label">Datum prihoda</label>
+        <div class="control">
+          <input class="input" type="date" name="datum_prihoda" required placeholder="llll-mm-dd">
         </div>
-
-        <div class="field">
-            <label class="label">Oče</label>
-            <div class="control">
-              <input class="input" type="text" name="oce" placeholder="npr. SI96385274">
-            </div>
+      </div> 
+      <div class="field is-grouped">
+        <div class="control">
+          <button class="button is-link" type="submit">Dodaj</button>
         </div>
-
-        <div class="field">
-            <label class="label">Datum prihoda</label>
-            <div class="control">
-              <input class="input" type="date" name="datum_prihoda" required placeholder="llll-mm-dd">
-            </div>
+        <div class="control">
+          <button class="button is-link is-light"><a href="http://127.0.0.1:8080/register/" style="text-decoration: none;">Prekliči vnos</a></button>
         </div>
-            
-        <div class="field is-grouped">
-          <div class="control">
-            <button class="button is-link" type="submit">Dodaj</button>
-          </div>
-          <div class="control">
-            <button class="button is-link is-light"><a href="http://127.0.0.1:8080/register/" style="text-decoration: none;">Prekliči vnos</a></button>
-          </div>
-        </div>
+      </div>
     </form>
-    </div>
-  
+  </div>
 </section>

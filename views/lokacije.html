@@ -1,251 +1,227 @@
 % rebase('base.html')
 
 <section class="hero is-link welcome is-small">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Lokacija živine
-            </h1>
-            <h2 class="subtitle">
-                Ustrezno glede na dejansko stanje razporedite vaše živali po lokacijah. <br>
-                Če lokacija še ne obstaja, jo lahko dodate.
-            </h2>
-        </div>
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Lokacija živine</h1>
+      <h3>
+        Ustrezno glede na dejansko stanje razporedite vaše živali po lokacijah. <br>
+        Če lokacija še ne obstaja, jo lahko dodate.
+      </h3>
     </div>
+  </div>
 </section>
-
-
 
 % if nerazporejeno:
 <div class="box">
-    <div class="notification is-danger">
-        V registru imate živali, ki niso razporejene po lokacijah:
-    </div>
-    <div class="column">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID številka</th>
-                    <th>Ime</th>
-                    <th>Datum rojstva</th>
-                    <th>Spol</th>
-                    <th>Pasma</th>
-                    <th>Datum prihoda</th>
-                </tr>
-            </thead>
-            <tbody>
-                % for zival in register:
-                    % if zival.lokacija == None:
-                    <tr>
-                        <td>{{zival.id}}</td>
-                        <td>{{zival.ime}}</td>
-                        <td>{{zival.rojstvo}}</td>
-                        <td>{{zival.spol}}</td>
-                        <td>{{zival.pasma}}</td>
-                        <td>{{zival.datum_prihoda}}</td>
-                    </tr>
-                    % end
-                % end
-            </tbody>
-          </table>
-    </div>
-    <hr>
-    <div>
+  <div class="notification is-danger">
+    V registru imate živali, ki niso razporejene po lokacijah:
+  </div>
+  <div class="column">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID številka</th>
+          <th>Ime</th>
+          <th>Datum rojstva</th>
+          <th>Spol</th>
+          <th>Pasma</th>
+          <th>Datum prihoda</th>
+        </tr>
+      </thead>
+      <tbody>
+        % for zival in register:
+          % if zival.lokacija == None:
+          <tr>
+            <td>{{zival.id}}</td>
+            <td>{{zival.ime}}</td>
+            <td>{{zival.rojstvo}}</td>
+            <td>{{zival.spol}}</td>
+            <td>{{zival.pasma}}</td>
+            <td>{{zival.datum_prihoda}}</td>
+          </tr>
+          % end
+        % end
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  <div>
     <form method="POST" action="/lokacije/">
-            <div class="field has-addons">
-                <div class="control is-expanded">
-                    <div class="select is-fullwidth">
-                        <select name="id_zivali">
-                            % for zival in register:
-                                % if zival.lokacija == None:
-                                <option>{{zival.id}}</option>
-                                % end
-                            % end
-                        </select>
-                    </div>
-                </div>
-                <div class="control is-expanded">
-                    <div class="select is-fullwidth">
-                        <select name="ime_lokacije">
-                            % for lok in lokacije:
-                            <option>{{lok.ime}}</option>
-                            % end
-                        </select>
-                    </div>
-                </div>
-                <div class="control">
-                    <button type="submit" class="button is-primary">Premakni</button>
-                </div>
-            </div>
+      <div class="field has-addons">
+        <div class="control is-expanded">
+          <div class="select is-fullwidth">
+            <select name="id_zivali">
+              % for zival in register:
+                % if zival.lokacija == None:
+                <option>{{zival.id}}</option>
+                % end
+              % end
+            </select>
+          </div>
+        </div>
+        <div class="control is-expanded">
+          <div class="select is-fullwidth">
+            <select name="ime_lokacije">
+              % for lok in lokacije:
+              <option>{{lok.ime}}</option>
+              % end
+            </select>
+          </div>
+        </div>
+        <div class="control">
+            <button type="submit" class="button is-primary">Premakni</button>
+        </div>
+      </div>
     </form>
-    </div>
+  </div>
 </div>
 % end
 
-
 <div>
-    <section class="section">
-        <div class="buttons">
-            <button class="button is-link is-light"><a href="http://127.0.0.1:8080/lokacije/dodaj-lokacijo/" style="text-decoration: none;">Dodaj lokacijo</a></button>
-        </div>
-    </section>  
+  <section class="section">
+    <div class="buttons">
+      <button class="button is-link is-light"><a href="http://127.0.0.1:8080/lokacije/dodaj-lokacijo/" style="text-decoration: none;">Dodaj lokacijo</a></button>
+    </div>
+  </section>  
 </div>
 
 <div class="box">
 % for indeks_lokacije, lok in enumerate(lokacije): 
-    % if lok.stevilo_zivali() == 0:
-    <div class="box">
-        <section> 
-            <span class="tag is-info is-medium">Ime lokacije: {{lok.ime}}</span>
-            <span class="tag is-medium">Površina: {{lok.povrsina}} ha</span>
-            <span class="tag is-medium">Trenutno število živali: {{lok.stevilo_zivali()}}</span>
-        </section>
-        <hr>
-    </div>
-
-    % else:
-    <div class="box">
-        <section>
-            <span class="tag is-info is-medium">Ime lokacije: {{lok.ime}}</span>
-            <span class="tag is-medium">Površina: {{lok.povrsina}} ha</span>
-            <span class="tag is-medium">Trenutno število živali: {{lok.stevilo_zivali()}}</span>
-        </section>
-        <hr>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID številka</th>
-                    <th>Ime</th>
-                    <th>Datum rojstva</th>
-                    <th>Spol</th>
-                    <th>Pasma</th>
-                    <th>Datum prihoda</th>
-                </tr>
-            </thead>
-            <tbody>
-                % for zival in lok.zivali:
-                <tr>
-                    <td>{{zival.id}}</td>
-                    <td>{{zival.ime}}</td>
-                    <td>{{zival.rojstvo}}</td>
-                    <td>{{zival.spol}}</td>
-                    <td>{{zival.pasma}}</td>
-                    <td>{{zival.datum_prihoda}}</td>                                     
-                </tr>
-                % end  
-            </tbody>
-        </table>
-        <hr>
-        <div>
-
-
-            <form method="POST" action="/lokacije/{{indeks_lokacije}}/">
-                <label class="label">Premakni posamezno žival iz te lokacije na drugo lokacijo</label>
-
-                    <div class="field has-addons">
-                        <div class="control is-expanded">
-                            <div class="select is-fullwidth">
-                                <select name="zival">
-                                    % for zival in lok.zivali:
-                                    <option>{{zival.id}}</option>
-                                    % end
-                                </select>
-                            </div>
-                        </div>
-                        <div class="control is-expanded">
-                            <div class="select is-fullwidth">
-                                <select name="lokacija_from">
-                                    <option>{{lok.ime}}</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="control is-expanded">
-                            <div class="select is-fullwidth">
-                                <select name="lokacija_to">
-                                    % for loka in lokacije:
-                                    <option>{{loka.ime}}</option>
-                                    % end
-                                </select>
-                            </div>
-                        </div>
-                        <div class="control">
-                            <button type="submit" class="button is-primary">Premakni</button>
-                        </div>
-                    </div>
-            </form>
-
-
-            </div>
-    </div>
-% end
-% end
-</div>
-
-<hr>
-
-<div class="box">
-    <form method="POST" action="/lokacije/veliki-premik/">
-        <label class="label">Premakni celo čredo iz ene lokacije na drugo</label>
+  % if lok.stevilo_zivali() == 0:
+  <div class="box">
+    <section> 
+      <span class="tag is-info is-medium">Ime lokacije: {{lok.ime}}</span>
+      <span class="tag is-medium">Površina: {{lok.povrsina}} ha</span>
+      <span class="tag is-medium">Trenutno število živali: {{lok.stevilo_zivali()}}</span>
+    </section>
+    <hr>
+  </div>
+  % end
+  % else:
+  <div class="box">
+    <section>
+      <span class="tag is-info is-medium">Ime lokacije: {{lok.ime}}</span>
+      <span class="tag is-medium">Površina: {{lok.povrsina}} ha</span>
+      <span class="tag is-medium">Trenutno število živali: {{lok.stevilo_zivali()}}</span>
+    </section>
+    <hr>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>ID številka</th>
+          <th>Ime</th>
+          <th>Datum rojstva</th>
+          <th>Spol</th>
+          <th>Pasma</th>
+          <th>Datum prihoda</th>
+        </tr>
+      </thead>
+      <tbody>
+        % for zival in lok.zivali:
+        <tr>
+          <td>{{zival.id}}</td>
+          <td>{{zival.ime}}</td>
+          <td>{{zival.rojstvo}}</td>
+          <td>{{zival.spol}}</td>
+          <td>{{zival.pasma}}</td>
+          <td>{{zival.datum_prihoda}}</td>                                     
+        </tr>
+        % end  
+      </tbody>
+    </table>
+    <hr>
+    <div>
+      <form method="POST" action="/lokacije/{{indeks_lokacije}}/">
+        <label class="label">Premakni posamezno žival iz te lokacije na drugo lokacijo</label>
         <div class="field has-addons">
-            <div class="control is-expanded">
-                <div class="select is-fullwidth">
-                    <select name="lokacija_od">
-                        % for loka in lokacije:
-                        <option>{{loka.ime}}</option>
-                        % end
-                    </select>
-                </div>
-            </div>
-            <div class="control is-expanded">
-                <div class="select is-fullwidth">
-                    <select name="lokacija_do">
-                        % for loka in lokacije:
-                        <option>{{loka.ime}}</option>
-                        % end
-                    </select>
-                </div>
-            </div>
-            <div class="control">
-                <button type="submit" class="button is-primary">Premakni</button>
-            </div>
-        </div>
-    </form>
-</div>
-
-<hr>
-
-<div class="box">
-<form method="POST" action="/lokacije/odstrani-lokacijo/">
-    <div class="field">
-        <label class="label">Odstrani lokacijo</label>
-        <div class="control">
           <div class="control is-expanded">
             <div class="select is-fullwidth">
-              <select name="ime">
-                  % for lok in lokacije:
-                    % if len(lok.zivali) == 0:
-                    <option>{{lok.ime}}</option>
-                    % end
-                  % end
+              <select name="zival">
+                % for zival in lok.zivali:
+                <option>{{zival.id}}</option>
+                % end
               </select>
             </div>
           </div>
+          <div class="control is-expanded">
+            <div class="select is-fullwidth">
+              <select name="lokacija_from">
+                  <option>{{lok.ime}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="control is-expanded">
+            <div class="select is-fullwidth">
+              <select name="lokacija_to">
+                % for loka in lokacije:
+                <option>{{loka.ime}}</option>
+                % end
+              </select>
+            </div>
+          </div>
+          <div class="control">
+              <button type="submit" class="button is-primary">Premakni</button>
+          </div>
         </div>
+      </form>
     </div>
-  
+  </div>
+  % end
+% end
+</div>
+<hr>
+
+<div class="box">
+  <form method="POST" action="/lokacije/veliki-premik/">
+    <label class="label">Premakni celo čredo iz ene lokacije na drugo</label>
+    <div class="field has-addons">
+      <div class="control is-expanded">
+        <div class="select is-fullwidth">
+          <select name="lokacija_od">
+            % for loka in lokacije:
+            <option>{{loka.ime}}</option>
+            % end
+          </select>
+        </div>
+      </div>
+      <div class="control is-expanded">
+        <div class="select is-fullwidth">
+          <select name="lokacija_do">
+            % for loka in lokacije:
+            <option>{{loka.ime}}</option>
+            % end
+          </select>
+        </div>
+      </div>
+      <div class="control">
+          <button type="submit" class="button is-primary">Premakni</button>
+      </div>
+    </div>
+  </form>
+</div>
+<hr>
+
+<div class="box">
+  <form method="POST" action="/lokacije/odstrani-lokacijo/">
+    <div class="field">
+      <label class="label">Odstrani lokacijo</label>
+      <div class="control">
+        <div class="control is-expanded">
+          <div class="select is-fullwidth">
+            <select name="ime">
+              % for lok in lokacije:
+                % if len(lok.zivali) == 0:
+                <option>{{lok.ime}}</option>
+                % end
+              % end
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="control">
         <button type="submit" class="button is-danger">Odstrani</button>
     </div>
-</form>
+  </form>
 </div>
-
-
-
-
-
-                
-
-
-
-
-

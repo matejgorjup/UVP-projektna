@@ -1,108 +1,101 @@
 % rebase('base.html')
 
 <section class="hero is-link welcome is-small">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">
-                Delovne ure
-            </h1>
-            <h2 class="subtitle">
-                Navodila za uporabo
-            </h2>
-        </div>
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Delovne ure</h1>
+      <h3>
+        Izberite željeno osebo in na njenem profilu dodajate stanje opravljenih ur. <br>
+        Če želite poizvedbo o opravljenih urah za določeno osebo, želeno obdobje poizvedbe vnesite v obrazec. 
+      </h3>
     </div>
+  </div>
 </section>
 
 <section>
-
-
-% for indeks_delavca, delavec in enumerate(delovna_sila):
-<div class="card">
-  <div class="card-content">
-    <div class="media">
-      <div class="media-left">
-        <figure class="image is-48x48">
-          <img src="https://icons-for-free.com/iconfiles/png/512/person-1324760545186718018.png" alt="Placeholder image">
-        </figure>
-      </div>
-      <div class="media-content">
-        <p class="title is-4">{{delavec.ime}}</p>
-        <p class="subtitle is-6"><a href="/delovne-ure/delavec/{{indeks_delavca}}/" style="text-decoration: none;">Oglej si profil</a></p>
+  % for indeks_delavca, delavec in enumerate(delovna_sila):
+  <div class="card">
+    <div class="card-content">
+      <div class="media">
+        <div class="media-left">
+          <figure class="image is-48x48">
+            <img src="https://icons-for-free.com/iconfiles/png/512/person-1324760545186718018.png" alt="Placeholder image">
+          </figure>
+        </div>
+        <div class="media-content">
+          <p class="title is-4">{{delavec.ime}}</p>
+          <p class="subtitle is-6"><a href="/delovne-ure/delavec/{{indeks_delavca}}/" style="text-decoration: none;">Oglej si profil</a></p>
+        </div>
       </div>
     </div>
-  </div>
+    <hr>
 
+    <div class="card-content">            
+      <form method="POST" action="">
+        <div>
+          <div class="field-body">
+            <div class="field">
+              <p class="control is-expanded">
+                <label class="label">Poizvedba stanja delovnih ur od vključno datuma</label>
+                <input class="input" type="date" name="datum_od">
+                <span class="icon is-small is-left">
+                </span>
+              </p>
+            </div>
+            <div class="field">
+              <p class="control is-expanded">
+                <label class="label">do vključno datuma</label>
+                <input class="input" type="date" name="datum_do">
+                <span class="icon is-small is-left">
+                </span>
+              </p>
+            </div>
+          </div>
+          <p class="control">
+            <button class="button is-link" type="submit">Poizvedi</button>
+          </p>
+        </div>
+      </form>
+    </div>
+  </div>
+  <hr>
+  % end
   <hr>
 
-  <div class="card-content">            
-    <form method="POST" action="">
-      <div>
-          <div class="field-body">
-              <div class="field">
-                <p class="control is-expanded">
-                  <label class="label">Poizvedba stanja delovnih ur od vključno datuma</label>
-                  <input class="input" type="date" name="datum_od">
-                  <span class="icon is-small is-left">
-                  </span>
-                </p>
-              </div>
-              <div class="field">
-                <p class="control is-expanded">
-                  <label class="label">do vključno datuma</label>
-                  <input class="input" type="date" name="datum_do">
-                  <span class="icon is-small is-left">
-                  </span>
-                </p>
-              </div>
-              </div>
-              <p class="control">
-                <button class="button is-link" type="submit">Poizvedi</button>
-              </p>
-          </div>
-    </form>
-  </div>
-</div>
-<hr>
-% end
-
-<hr>
-
-<div class="box">
-  <form method="POST" action="/delovne-ure/dodaj/">
-    <div class="field">
+  <div class="box">
+    <form method="POST" action="/delovne-ure/dodaj/">
+      <div class="field">
         <label class="label">Dodaj delavca z imenom</label>
         <div class="control">
           <input class="input" type="text" name="ime">
         </div>
-    </div>
+      </div>
+      <div class="control">
+        <button class="button is-info">Dodaj</button>
+      </div>
+    </form>
+  </div>
+  <hr>
 
-    <div class="control">
-      <button class="button is-info">Dodaj</button>
-    </div>
-  </form>
-</div>
-
-<hr>
-
-<div class="box">
-  <form method="POST" action="/delovne-ure/odstrani/">
-    <div class="field">
+  <div class="box">
+    <form method="POST" action="/delovne-ure/odstrani/">
+      <div class="field">
         <label class="label">Odstrani delavca iz seznama</label>
         <div class="control">
           <div class="control is-expanded">
             <div class="select is-fullwidth">
               <select name="ime">
-                  % for delavec in delovna_sila:
-                  <option>{{delavec.ime}}</option>
-                  % end
+                % for delavec in delovna_sila:
+                <option>{{delavec.ime}}</option>
+                % end
               </select>
             </div>
           </div>
         </div>
-    </div>
-
-    <div class="control">
-      <button class="button is-danger">Odstrani</button>
-    </div>
-  </form>
-</div>
+      </div>
+      <div class="control">
+        <button class="button is-danger">Odstrani</button>
+      </div>
+    </form>
+  </div>
+</section>

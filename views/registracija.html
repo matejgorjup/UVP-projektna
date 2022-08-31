@@ -1,64 +1,56 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kmetijsko knjigovodstvo</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
-    <!-- Bulma Version 0.9.0-->
-    <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
-    <link rel="stylesheet" type="text/css" href="../css/admin.css">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kmetijsko knjigovodstvo</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <!-- Bulma Version 0.9.0-->
+  <link rel="stylesheet" href="https://unpkg.com/bulma@0.9.0/css/bulma.min.css" />
+  <link rel="stylesheet" type="text/css" href="../css/admin.css">
 </head>
 
-
 <body>
-
   <div class="columns is-centered">
     <div class="column is-half">
+      <section class="hero is-link welcome is-small">
+        <div class="hero-body">
+          <div class="container">
+            <h1 class="title">Kmetijsko knjigovodstvo</h1>
+          </div>
+        </div>
+      </section>
       <form class="box" method="POST">
         % if error:
         <article class="message is-danger">
-            <div class="message-body">
-                {{error}}
-            </div>
+          <div class="message-body">{{error}}</div>
         </article>
         % end  
         <div class="field">
           <label class="label">MID</label>
           <div class="control">
-            <input class="input" type="text" name="uporabnisko_ime" placeholder="npr. 100987654">
+            <input class="input" type="text" name="mid" placeholder="npr. 100987654">
           </div>
         </div>
-      
         <div class="field">
           <label class="label">Nastavi geslo</label>
           <div class="control">
             <input class="input" type="password" name="geslo" placeholder="********">
           </div>
         </div>
-
         <div class="field">
-            <label class="label">Ponovi geslo</label>
-            <div class="control">
-              <input class="input" type="password" name="geslo_check" placeholder="********">
-            </div>
+          <label class="label">Ponovi geslo</label>
+          <div class="control">
+            <input class="input" type="password" name="geslo_check" placeholder="********">
           </div>
-      
+        </div>
         <button class="button is-primary">Registriraj se</button>
-  </form>     
-
-
+      </form>     
     </div>
-
   </div>
-
-
-
 </body>
-
 </html>
 
 

@@ -1,72 +1,71 @@
 % rebase('base.html')
 
 <section class="hero is-link welcome is-small">
-    <div class="hero-body">
-        <div class="container">
-            <h1 class="title">Register</h1>
-            <h2 class="subtitle">Dodajte ali odstranite živali na vašem gospodarstvu.</h2>
-        </div>
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">Register</h1>
+      <h3>
+          Dodajte ali odstranite živali na vašem gospodarstvu.
+      </h3>
     </div>
+  </div>
 </section>
 
 <section>
-    <div class="box">
-        <div class="column">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>ID številka</th>
-                        <th>Ime</th>
-                        <th>Datum rojstva</th>
-                        <th>Spol</th>
-                        <th>Pasma</th>
-                        <th>Mati</th>
-                        <th>Oče</th>
-                        <th>Datum prihoda</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    % for zival in register_sorted:
-                    <tr>
-                        <td>{{zival.id}}</td>
-                        <td>{{zival.ime}}</td>
-                        <td>{{zival.rojstvo}}</td>
-                        <td>{{zival.spol}}</td>
-                        <td>{{zival.pasma}}</td>
-                        <td>{{zival.mati}}</td>
-                        <td>{{zival.oce}}</td>
-                        <td>{{zival.datum_prihoda}}</td>
-                    </tr>
-                    % end  
-                </tbody>
-            </table>
-        </div>
-    
-        <hr>
-
-        <form method="POST">
-            <div class="field has-addons">
-                <div class="control is-expanded">
-                    <div class="select is-fullwidth">
-                        <select name="id_zivali">
-                            % for zival in register_sorted:
-                            <option>{{zival.id}}</option>
-                            % end
-                        </select>
-                    </div>
-                </div>
-                <div class="control">
-                    <button type="submit" class="button is-danger">Odstrani</button>
-                </div>
-            </div>
-        </form>
-        
+  <div class="box">
+    <div class="column">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID številka</th>
+            <th>Ime</th>
+            <th>Datum rojstva</th>
+            <th>Spol</th>
+            <th>Pasma</th>
+            <th>Mati</th>
+            <th>Oče</th>
+            <th>Datum prihoda</th>
+          </tr>
+        </thead>
+        <tbody>
+          % for zival in register_sorted:
+          <tr>
+            <td>{{zival.id}}</td>
+            <td>{{zival.ime}}</td>
+            <td>{{zival.rojstvo}}</td>
+            <td>{{zival.spol}}</td>
+            <td>{{zival.pasma}}</td>
+            <td>{{zival.mati}}</td>
+            <td>{{zival.oce}}</td>
+            <td>{{zival.datum_prihoda}}</td>
+          </tr>
+          % end  
+        </tbody>
+      </table>
     </div>
+    <hr>
+
+    <form method="POST">
+      <div class="field has-addons">
+        <div class="control is-expanded">
+          <div class="select is-fullwidth">
+            <select name="id_zivali">
+              % for zival in register_sorted:
+              <option>{{zival.id}}</option>
+              % end
+            </select>
+          </div>
+        </div>
+        <div class="control">
+          <button type="submit" class="button is-danger">Odstrani</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </section>
 
 <section class="section">
-    <div class="buttons">
-        <button class="button is-link is-light"><a href="http://127.0.0.1:8080/register/dodaj-zival/" style="text-decoration: none;">Dodaj žival</a></button>
-    </div>
+  <div class="buttons">
+    <button class="button is-link is-light"><a href="http://127.0.0.1:8080/register/dodaj-zival/" style="text-decoration: none;">Dodaj žival</a></button>
+  </div>
 </section>
