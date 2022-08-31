@@ -1,0 +1,320 @@
+{
+  "mid": 100123456,
+  "geslo": "ac6a680d94b3f2331f9a9e02397c14fa08e0e4f4c07527e311aa60c3753450f23b408af9b31491dbfad20171fb044544ad604dc5ad6bcb3a00818ec24ab19c00",
+  "register": [
+    {
+      "id": "SI12341234",
+      "ime": "Ciko",
+      "rojstvo": "2018-12-23",
+      "spol": "M",
+      "pasma": "LIM",
+      "mati": null,
+      "oce": null,
+      "datum_prihoda": "2018-12-23",
+      "lokacija": "Brezovca"
+    },
+    {
+      "id": "SI78985245",
+      "ime": "Pepi",
+      "rojstvo": "2018-02-14",
+      "spol": "M",
+      "pasma": "LIM",
+      "mati": "",
+      "oce": "",
+      "datum_prihoda": "2019-02-14",
+      "lokacija": "Hlev"
+    },
+    {
+      "id": "SI74185296",
+      "ime": "Jakutsk",
+      "rojstvo": "2018-05-05",
+      "spol": "M",
+      "pasma": "LIM",
+      "mati": "SI75315987",
+      "oce": "SI45636987",
+      "datum_prihoda": "2019-01-01",
+      "lokacija": "Brezovca"
+    },
+    {
+      "id": "SI95846759",
+      "ime": "Jon",
+      "rojstvo": "2022-08-20",
+      "spol": "M",
+      "pasma": "LIM/LS",
+      "mati": "SI78945674",
+      "oce": "SI98659246",
+      "datum_prihoda": "2022-08-20",
+      "lokacija": "Brezovca"
+    },
+    {
+      "id": "SI74174174",
+      "ime": "Mon",
+      "rojstvo": "2022-08-29",
+      "spol": "M",
+      "pasma": "LIM",
+      "mati": "SI78549685",
+      "oce": "SI74185296",
+      "datum_prihoda": "2022-08-29",
+      "lokacija": "Hlev"
+    },
+    {
+      "id": "SI78965314",
+      "ime": "Jana",
+      "rojstvo": "2022-08-23",
+      "spol": "Ž",
+      "pasma": "LIM",
+      "mati": "",
+      "oce": "SI74185296",
+      "datum_prihoda": "2022-08-23",
+      "lokacija": "Hlev"
+    },
+    {
+      "id": "SI04698041",
+      "ime": "Leni",
+      "rojstvo": "2015-07-07",
+      "spol": "Ž",
+      "pasma": "LIM",
+      "mati": "SI63025020",
+      "oce": "IT0309990195015",
+      "datum_prihoda": "2018-05-01",
+      "lokacija": "Polje"
+    },
+    {
+      "id": "SI75131412",
+      "ime": "Nezi",
+      "rojstvo": "2018-06-09",
+      "spol": "Ž",
+      "pasma": "LIM/LS",
+      "mati": "SI74519651",
+      "oce": "SI98659246",
+      "datum_prihoda": "2019-01-01",
+      "lokacija": "Brezovca"
+    },
+    {
+      "id": "SI82548465",
+      "ime": "Tara",
+      "rojstvo": "2021-09-03",
+      "spol": "Ž",
+      "pasma": "LIM",
+      "mati": "SI11124587",
+      "oce": "IT0309990195015",
+      "datum_prihoda": "2022-03-06",
+      "lokacija": "Hlev"
+    }
+  ],
+  "lokacije": [
+    {
+      "ime": "Brezovca",
+      "povrsina": "5,2",
+      "zivali": [
+        {
+          "id": "SI74185296",
+          "ime": "Jakutsk",
+          "rojstvo": "2018-05-05",
+          "spol": "M",
+          "pasma": "LIM",
+          "mati": "SI75315987",
+          "oce": "SI45636987",
+          "datum_prihoda": "2019-01-01",
+          "lokacija": "Brezovca"
+        },
+        {
+          "id": "SI75131412",
+          "ime": "Nezi",
+          "rojstvo": "2018-06-09",
+          "spol": "Ž",
+          "pasma": "LIM/LS",
+          "mati": "SI74519651",
+          "oce": "SI98659246",
+          "datum_prihoda": "2019-01-01",
+          "lokacija": "Brezovca"
+        },
+        {
+          "id": "SI95846759",
+          "ime": "Jon",
+          "rojstvo": "2022-08-20",
+          "spol": "M",
+          "pasma": "LIM/LS",
+          "mati": "SI78945674",
+          "oce": "SI98659246",
+          "datum_prihoda": "2022-08-20",
+          "lokacija": "Brezovca"
+        },
+        {
+          "id": "SI78965314",
+          "ime": "Jana",
+          "rojstvo": "2022-08-23",
+          "spol": "Ž",
+          "pasma": "LIM",
+          "mati": "",
+          "oce": "SI74185296",
+          "datum_prihoda": "2022-08-23",
+          "lokacija": "Brezovca"
+        }
+      ]
+    },
+    {
+      "ime": "Polje",
+      "povrsina": "2,5",
+      "zivali": [
+        {
+          "id": "SI04698041",
+          "ime": "Leni",
+          "rojstvo": "2015-07-07",
+          "spol": "Ž",
+          "pasma": "LIM",
+          "mati": "SI63025020",
+          "oce": "IT0309990195015",
+          "datum_prihoda": "2018-05-01",
+          "lokacija": "Polje"
+        }
+      ]
+    },
+    {
+      "ime": "Hlev",
+      "povrsina": "-",
+      "zivali": [
+        {
+          "id": "SI82548465",
+          "ime": "Tara",
+          "rojstvo": "2021-09-03",
+          "spol": "Ž",
+          "pasma": "LIM",
+          "mati": "SI11124587",
+          "oce": "IT0309990195015",
+          "datum_prihoda": "2022-03-06",
+          "lokacija": "Hlev"
+        },
+        {
+          "id": "SI78985245",
+          "ime": "Pepi",
+          "rojstvo": "2018-02-14",
+          "spol": "M",
+          "pasma": "LIM",
+          "mati": "",
+          "oce": "",
+          "datum_prihoda": "2019-02-14",
+          "lokacija": "Hlev"
+        },
+        {
+          "id": "SI74174174",
+          "ime": "Mon",
+          "rojstvo": "2022-08-29",
+          "spol": "M",
+          "pasma": "LIM",
+          "mati": "SI78549685",
+          "oce": "SI74185296",
+          "datum_prihoda": "2022-08-29",
+          "lokacija": "Hlev"
+        }
+      ]
+    }
+  ],
+  "delovna_sila": [
+    {
+      "ime": "Ambrož",
+      "ure": [
+        {
+          "datum": "2022-02-20",
+          "kmetijstvo": "4",
+          "gozdarstvo": "0"
+        },
+        {
+          "datum": "2022-07-23",
+          "kmetijstvo": 7,
+          "gozdarstvo": 0
+        },
+        {
+          "datum": "2022-07-24",
+          "kmetijstvo": 2,
+          "gozdarstvo": 1
+        },
+        {
+          "datum": "2022-07-25",
+          "kmetijstvo": 5,
+          "gozdarstvo": 0
+        },
+        {
+          "datum": "2022-07-26",
+          "kmetijstvo": 6,
+          "gozdarstvo": 0
+        },
+        {
+          "datum": "2022-07-27",
+          "kmetijstvo": 2,
+          "gozdarstvo": 0
+        },
+        {
+          "datum": "2022-07-28",
+          "kmetijstvo": 5,
+          "gozdarstvo": 0
+        },
+        {
+          "datum": "2022-08-26",
+          "kmetijstvo": "4",
+          "gozdarstvo": "0"
+        },
+        {
+          "datum": "2022-08-27",
+          "kmetijstvo": "4",
+          "gozdarstvo": "4"
+        },
+        {
+          "datum": "2022-08-28",
+          "kmetijstvo": 7,
+          "gozdarstvo": "0"
+        },
+        {
+          "datum": "2022-08-29",
+          "kmetijstvo": 13,
+          "gozdarstvo": "3"
+        },
+        {
+          "datum": "2022-08-30",
+          "kmetijstvo": 4,
+          "gozdarstvo": "2"
+        },
+        {
+          "datum": "2022-08-31",
+          "kmetijstvo": 0,
+          "gozdarstvo": "4"
+        }
+      ]
+    },
+    {
+      "ime": "Jaka",
+      "ure": [
+        {
+          "datum": "2022-07-23",
+          "kmetijstvo": 8,
+          "gozdarstvo": 2
+        },
+        {
+          "datum": "2022-07-24",
+          "kmetijstvo": 3,
+          "gozdarstvo": 1
+        },
+        {
+          "datum": "2022-07-25",
+          "kmetijstvo": 0,
+          "gozdarstvo": 0
+        },
+        {
+          "datum": "2022-07-26",
+          "kmetijstvo": 8,
+          "gozdarstvo": 1
+        },
+        {
+          "datum": "2022-07-27",
+          "kmetijstvo": 2,
+          "gozdarstvo": 0
+        },
+        {
+          "datum": "2022-07-28",
+          "kmetijstvo": 3,
+          "gozdarstvo": 1
+        }
+      ]
+    }
+  ]
+}
