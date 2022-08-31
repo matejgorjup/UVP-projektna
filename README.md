@@ -7,7 +7,7 @@ V osnovi je razdeljen na več podstrani, preko katerih lahko kmetovalec nadzira 
 Razdelek Delovne ure je namenjen sledenju delovnih ur posameznih delavcev na gospodarstvu, poizvedbe pa pripomorejo k lažjemu izpolnjevanju ostalega fizičnega knjigovodstva.
 
 ## Navodila za uporabo
-Program se zažene preko datoteke `spletni_vmesnik.py`.
+Program se zažene preko datoteke `kmetijsko_knjigovodstvo.py`.
 
 ## Demo
 Ob prijavi z MID številko _100123456_ in geslom _demo_ vstopite v predpripravljen uporabniški račun, namenjen demonstraciji. Na strani Register lahko poskušate dodati nove živali in jih nato razvrstiti po lokacijah. Lahko se dodate kot delavca na strani Delovna sila in vnašate delovne ure za posamezne dni. Razdelek na strani namizja vas tudi opozori na morebitna nedokončana opravila in vnose.
