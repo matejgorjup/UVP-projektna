@@ -21,7 +21,7 @@ class Gospodarstvo:
             "register": [zival.v_slovar() for zival in self.register],
             "lokacije": [lokacija.v_slovar() for lokacija in self.lokacije],
             "delovna_sila": [delavec.v_slovar() for delavec in self.delovna_sila]
-    }
+        }
  
     @staticmethod
     def iz_slovarja(slovar):
@@ -33,15 +33,15 @@ class Gospodarstvo:
         return Gospodarstvo(mid, geslo, register, lokacije, delovna_sila)
 
     def v_datoteko(self):
-        path = f"stanja_uporabnikov/{self.mid}"
+        path = f"stanja_uporabnikov/{self.mid}.json"
         with open(path, "w") as dat:
             slovar = self.v_slovar()
-            json.dump(slovar, dat, indent=4, ensure_ascii=False)
+            json.dump(slovar, dat, indent=2, ensure_ascii=False)
 
     @staticmethod
     def iz_datoteke(mid):
         try:
-            path = f"stanja_uporabnikov/{mid}"
+            path = f"stanja_uporabnikov/{mid}.json"
             with open(path) as dat:
                 slovar = json.load(dat)
                 return Gospodarstvo.iz_slovarja(slovar)
@@ -56,7 +56,7 @@ class Gospodarstvo:
             raise ValueError("Uporabnik s to MID številko že obstaja! Poskusite se prijaviti ali vpišite drugo MID številko.")
         else:
             koda = Gospodarstvo.zakodiraj_geslo(geslo)
-            ustvarjen = Gospodarstvo(mid, koda)
+            ustvarjen = Gospodarstvo(mid, koda, [], [], [])
             ustvarjen.v_datoteko()
             return ustvarjen
 
@@ -115,11 +115,23 @@ class Gospodarstvo:
     def odstrani_delavca(self, delavec):
         self.delovna_sila.remove(delavec)
 
+    def nerazporejene_zivali(self):
+        for zival in self.register:
+            if zival.lokacija == None:
+                return True
+
     def stevilo_razporejenih(self):
         stevilo = 0
         for lokacija in self.lokacije:
             stevilo += lokacija.stevilo_zivali()
         return stevilo
+
+    def st_lokacij(self):
+        n = 0
+        for lok in self.lokacije:
+            if lok.stevilo_zivali() > 0:
+                n += 1
+        return n
 
 ###############################################################################################################
 
@@ -193,12 +205,10 @@ class Lokacija:
         return len(self.zivali)
 
     def dodaj_zival(self, zival):
-        """Doda žival v čredo"""
         self.zivali.append(zival)
         zival.lokacija = self.ime
 
     def odstrani_zival(self, zival):
-        """Odstrani žival iz črede"""
         zival_na_lok = najdi_zival(zival.id, self.zivali)
         self.zivali.remove(zival_na_lok)
         zival.lokacija = None
@@ -212,12 +222,6 @@ class Lokacija:
         for zival in self.zivali:
             zival_reg = najdi_zival(zival.id, register)
             self.premakni_zival(lok2, zival_reg)
-
-
-def nerazporejene_zivali(gospodarstvo):
-    for zival in gospodarstvo.register:
-        if zival.lokacija == None:
-            return True
 
 ###############################################################################################################
 
@@ -250,7 +254,7 @@ class Delavec:
         self.ure.remove(dd)
 
     def povzetek_ur(self, zacetni_datum, koncni_datum):
-        """Izračuna število posameznih ur od zacetni_datum do koncni_datum (brez njega)"""
+        """Izračuna število posameznih ur od zacetni_datum do koncni_datum (brez le-tega)"""
         sum_kmet = 0
         sum_gozd = 0
         for dan in self.ure:
@@ -258,14 +262,17 @@ class Delavec:
                 sum_kmet += dan.kmetijstvo
                 sum_gozd += dan.gozdarstvo
         return (sum_kmet, sum_gozd)
-    #zelo neučinkovito
+    
+    def manjkajoci_vnos(self):
+        return self.ure[-1].datum != date.today
+
+###############################################################################################################
 
 class DelovniDan:
     def __init__(self, datum, ure_kmet, ure_gozd):
         self.datum = datum
         self.kmetijstvo = ure_kmet
         self.gozdarstvo = ure_gozd
-    
     
     ###############
 
@@ -286,34 +293,12 @@ class DelovniDan:
 
 ###############################################################################################################
 
-def najdi_zival(stevilka, register):
-    for zival in register:
-        if zival.id == stevilka:
-            return zival 
-
-
-def najdi_lokacijo(imme, lokacije):
-    for lok in lokacije:
-        if lok.ime == imme:
-            return lok
-
-def najdi_dd(datumm, delovne_ure):
-    for dd in delovne_ure:
-        if dd.datum == datumm:
-            return dd
-
-def najdi_delavca(imme, delavci):
-    for delavec in delavci:
-        if delavec.ime == imme:
-            return delavec
-
-
-def st_lokacij(lokacije):
-    n = 0
-    for lok in lokacije:
-        if lok.stevilo_zivali() > 0:
-            n += 1
-    return n
+def najdi(iskano, seznam, atribut):
+    "Najde objekt z atributom tipa string v seznamu"
+    i = 0
+    for i in range(0, len(seznam)):
+        if getattr(seznam[i], atribut) == iskano:
+            return seznam[i]
 
 
 
