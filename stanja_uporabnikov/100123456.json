@@ -22,7 +22,7 @@
       "mati": "",
       "oce": "",
       "datum_prihoda": "2019-02-14",
-      "lokacija": "Hlev"
+      "lokacija": "Brezovca"
     },
     {
       "id": "SI74185296",
@@ -55,7 +55,7 @@
       "mati": "SI78549685",
       "oce": "SI74185296",
       "datum_prihoda": "2022-08-29",
-      "lokacija": "Hlev"
+      "lokacija": "Brezovca"
     },
     {
       "id": "SI78965314",
@@ -88,7 +88,7 @@
       "mati": "SI74519651",
       "oce": "SI98659246",
       "datum_prihoda": "2019-01-01",
-      "lokacija": "Brezovca"
+      "lokacija": "Hlev"
     },
     {
       "id": "SI82548465",
@@ -100,6 +100,17 @@
       "oce": "IT0309990195015",
       "datum_prihoda": "2022-03-06",
       "lokacija": "Hlev"
+    },
+    {
+      "id": "SI78998794",
+      "ime": "Min",
+      "rojstvo": "2022-08-08",
+      "spol": "M",
+      "pasma": "LIM",
+      "mati": "SI75131412",
+      "oce": "SI74185296",
+      "datum_prihoda": "2022-08-08",
+      "lokacija": null
     }
   ],
   "lokacije": [
@@ -107,6 +118,39 @@
       "ime": "Brezovca",
       "povrsina": "5,2",
       "zivali": [
+        {
+          "id": "SI78965314",
+          "ime": "Jana",
+          "rojstvo": "2022-08-23",
+          "spol": "Ž",
+          "pasma": "LIM",
+          "mati": "",
+          "oce": "SI74185296",
+          "datum_prihoda": "2022-08-23",
+          "lokacija": "Brezovca"
+        },
+        {
+          "id": "SI74174174",
+          "ime": "Mon",
+          "rojstvo": "2022-08-29",
+          "spol": "M",
+          "pasma": "LIM",
+          "mati": "SI78549685",
+          "oce": "SI74185296",
+          "datum_prihoda": "2022-08-29",
+          "lokacija": "Brezovca"
+        },
+        {
+          "id": "SI78985245",
+          "ime": "Pepi",
+          "rojstvo": "2018-02-14",
+          "spol": "M",
+          "pasma": "LIM",
+          "mati": "",
+          "oce": "",
+          "datum_prihoda": "2019-02-14",
+          "lokacija": "Brezovca"
+        },
         {
           "id": "SI74185296",
           "ime": "Jakutsk",
@@ -119,17 +163,6 @@
           "lokacija": "Brezovca"
         },
         {
-          "id": "SI75131412",
-          "ime": "Nezi",
-          "rojstvo": "2018-06-09",
-          "spol": "Ž",
-          "pasma": "LIM/LS",
-          "mati": "SI74519651",
-          "oce": "SI98659246",
-          "datum_prihoda": "2019-01-01",
-          "lokacija": "Brezovca"
-        },
-        {
           "id": "SI95846759",
           "ime": "Jon",
           "rojstvo": "2022-08-20",
@@ -138,17 +171,6 @@
           "mati": "SI78945674",
           "oce": "SI98659246",
           "datum_prihoda": "2022-08-20",
-          "lokacija": "Brezovca"
-        },
-        {
-          "id": "SI78965314",
-          "ime": "Jana",
-          "rojstvo": "2022-08-23",
-          "spol": "Ž",
-          "pasma": "LIM",
-          "mati": "",
-          "oce": "SI74185296",
-          "datum_prihoda": "2022-08-23",
           "lokacija": "Brezovca"
         }
       ]
@@ -175,6 +197,17 @@
       "povrsina": "-",
       "zivali": [
         {
+          "id": "SI75131412",
+          "ime": "Nezi",
+          "rojstvo": "2018-06-09",
+          "spol": "Ž",
+          "pasma": "LIM/LS",
+          "mati": "SI74519651",
+          "oce": "SI98659246",
+          "datum_prihoda": "2019-01-01",
+          "lokacija": "Hlev"
+        },
+        {
           "id": "SI82548465",
           "ime": "Tara",
           "rojstvo": "2021-09-03",
@@ -183,28 +216,6 @@
           "mati": "SI11124587",
           "oce": "IT0309990195015",
           "datum_prihoda": "2022-03-06",
-          "lokacija": "Hlev"
-        },
-        {
-          "id": "SI78985245",
-          "ime": "Pepi",
-          "rojstvo": "2018-02-14",
-          "spol": "M",
-          "pasma": "LIM",
-          "mati": "",
-          "oce": "",
-          "datum_prihoda": "2019-02-14",
-          "lokacija": "Hlev"
-        },
-        {
-          "id": "SI74174174",
-          "ime": "Mon",
-          "rojstvo": "2022-08-29",
-          "spol": "M",
-          "pasma": "LIM",
-          "mati": "SI78549685",
-          "oce": "SI74185296",
-          "datum_prihoda": "2022-08-29",
           "lokacija": "Hlev"
         }
       ]
@@ -248,6 +259,31 @@
           "datum": "2022-07-28",
           "kmetijstvo": 5,
           "gozdarstvo": 0
+        },
+        {
+          "datum": "2022-08-21",
+          "kmetijstvo": 9,
+          "gozdarstvo": "0"
+        },
+        {
+          "datum": "2022-08-22",
+          "kmetijstvo": 2,
+          "gozdarstvo": "0"
+        },
+        {
+          "datum": "2022-08-23",
+          "kmetijstvo": 0,
+          "gozdarstvo": "1"
+        },
+        {
+          "datum": "2022-08-24",
+          "kmetijstvo": 4,
+          "gozdarstvo": "1"
+        },
+        {
+          "datum": "2022-08-25",
+          "kmetijstvo": 4,
+          "gozdarstvo": "5"
         },
         {
           "datum": "2022-08-26",
@@ -313,6 +349,51 @@
           "datum": "2022-07-28",
           "kmetijstvo": 3,
           "gozdarstvo": 1
+        },
+        {
+          "datum": "2022-08-01",
+          "kmetijstvo": 4,
+          "gozdarstvo": "2"
+        },
+        {
+          "datum": "2022-08-02",
+          "kmetijstvo": 7,
+          "gozdarstvo": "0"
+        },
+        {
+          "datum": "2022-08-03",
+          "kmetijstvo": 12,
+          "gozdarstvo": "0"
+        },
+        {
+          "datum": "2022-08-08",
+          "kmetijstvo": 12,
+          "gozdarstvo": "0"
+        },
+        {
+          "datum": "2022-08-09",
+          "kmetijstvo": 7,
+          "gozdarstvo": "1"
+        },
+        {
+          "datum": "2022-08-16",
+          "kmetijstvo": 8,
+          "gozdarstvo": "2"
+        },
+        {
+          "datum": "2022-08-17",
+          "kmetijstvo": 6,
+          "gozdarstvo": "2"
+        },
+        {
+          "datum": "2022-08-22",
+          "kmetijstvo": 9,
+          "gozdarstvo": "0"
+        },
+        {
+          "datum": "2022-08-24",
+          "kmetijstvo": 3,
+          "gozdarstvo": "3"
         }
       ]
     }
