@@ -209,8 +209,8 @@ class Lokacija:
         zival.lokacija = self.ime
 
     def odstrani_zival(self, zival):
-        zival_na_lok = najdi(zival.id, self.zivali, "id")
-        self.zivali.remove(zival_na_lok)
+        zival_na_lokaciji = najdi(zival.id, self.zivali, "id")
+        self.zivali.remove(zival_na_lokaciji)
         zival.lokacija = None
 
     def premakni_zival(self, lok2, zival):
@@ -219,9 +219,9 @@ class Lokacija:
         lok2.dodaj_zival(zival)  
     
     def premakni_vse_zivali(self, lok2, register):
-        for zival in self.zivali:
-            #zival_reg = najdi(zival.id, register, "ime")
-            self.premakni_zival(lok2, zival)
+        for zival in reversed(self.zivali):
+            zival_v_registru = najdi(zival.id, register, "id")
+            self.premakni_zival(lok2, zival_v_registru)
 
 ###############################################################################################################
 
@@ -254,17 +254,17 @@ class Delavec:
         self.ure.remove(dd)
 
     def povzetek_ur(self, zacetni_datum, koncni_datum):
-        """Izračuna število posameznih ur od zacetni_datum do koncni_datum (brez le-tega)"""
+        """Izračuna število posameznih ur od zacetni_datum do koncni_datum izključno"""
         sum_kmet = 0
         sum_gozd = 0
         for dan in self.ure:
             if dan.datum in [zacetni_datum + datetime.timedelta(n) for n in range(int ((koncni_datum - zacetni_datum).days))]:
-                sum_kmet += dan.kmetijstvo
-                sum_gozd += dan.gozdarstvo
+                sum_kmet += int(dan.kmetijstvo)
+                sum_gozd += int(dan.gozdarstvo)
         return (sum_kmet, sum_gozd)
     
     def manjkajoci_vnos(self):
-        return (self.ure[-1].datum != datetime.datetime.now().date()) and (datetime.datetime.now().time() > datetime.time(20, 0, 0, 0))
+        return (self.ure[-1].datum != datetime.datetime.now().date()) and (datetime.datetime.now().time() > datetime.time(12, 0, 0, 0))
 
 ###############################################################################################################
 
@@ -301,9 +301,3 @@ def najdi(iskano, seznam, atribut):
             return seznam[i]
     else:
         return False
-
-
-
-stanje = Gospodarstvo.iz_datoteke(100123456)
-register = stanje.register
-lokacije = stanje.lokacije

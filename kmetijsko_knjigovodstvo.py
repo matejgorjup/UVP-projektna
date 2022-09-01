@@ -79,7 +79,7 @@ def namizje():
         st_lokacij = stanje.st_lokacij(),
         mid = stanje.mid,
         delo = stanje.delovna_sila
-        )
+    )
 
 ################################################################################
 
@@ -130,8 +130,7 @@ def dodaj_zival():
 @bottle.get("/lokacije/")
 def lokacija():
     stanje = stanje_trenutnega_uporabnika()
-    return bottle.template(
-        'lokacije.html',
+    return bottle.template('lokacije.html',
         lokacije = stanje.lokacije, 
         register = stanje.register, 
         nerazporejeno = stanje.nerazporejene_zivali()
@@ -204,17 +203,36 @@ def odstrani_lokacijo():
 @bottle.get("/delovne-ure/")
 def delovne_ure():
     stanje = stanje_trenutnega_uporabnika()
-    return bottle.template(
-        'delovne_ure.html',
-        delovna_sila = stanje.delovna_sila
+    return bottle.template('delovne_ure.html', 
+        delovna_sila = stanje.delovna_sila, 
+        worker = None, 
+        povzetek = None, 
+        od = None, 
+        do = None
+    )
+
+@bottle.post("/delovne-ure/poizvedba/")
+def poizvedi():
+    stanje = stanje_trenutnega_uporabnika()
+    ime = bottle.request.forms.getunicode("ime_delavca")
+    od = datetime.strptime(bottle.request.forms.getunicode("datum_od"), '%Y-%m-%d').date()
+    do = datetime.strptime(bottle.request.forms.getunicode("datum_do"), '%Y-%m-%d').date()
+    izbrani = najdi(ime, stanje.delovna_sila, "ime")
+    povzetek = izbrani.povzetek_ur(od, do)
+
+    return bottle.template('delovne_ure.html',
+        delovna_sila = stanje.delovna_sila,
+        worker = izbrani,
+        povzetek = povzetek,
+        od = od,
+        do = do
     )
 
 @bottle.get("/delovne-ure/delavec/<indeks_delavca:int>/")
 def delavec(indeks_delavca):
     stanje = stanje_trenutnega_uporabnika()
     pregled = stanje.delovna_sila[indeks_delavca]
-    return bottle.template(
-        'delavec.html',
+    return bottle.template('delavec.html',
         delavec = pregled,
         indeks_delavca = int(indeks_delavca)
     )
