@@ -5,7 +5,7 @@
     <div class="container">
       <h1 class="title">Delovne ure</h1>
       <h3>
-        Izberite željeno osebo in na njenem profilu dodajate stanje opravljenih ur. <br>
+        Izberite želeno osebo in na njenem profilu dodajate stanje opravljenih ur. <br>
         Če želite poizvedbo o opravljenih urah za določeno osebo, želeno obdobje poizvedbe vnesite v obrazec. 
       </h3>
     </div>
@@ -28,40 +28,66 @@
         </div>
       </div>
     </div>
-    <hr>
-
-    <div class="card-content">            
-      <form method="POST" action="">
-        <div>
-          <div class="field-body">
-            <div class="field">
-              <p class="control is-expanded">
-                <label class="label">Poizvedba stanja delovnih ur od vključno datuma</label>
-                <input class="input" type="date" name="datum_od">
-                <span class="icon is-small is-left">
-                </span>
-              </p>
-            </div>
-            <div class="field">
-              <p class="control is-expanded">
-                <label class="label">do vključno datuma</label>
-                <input class="input" type="date" name="datum_do">
-                <span class="icon is-small is-left">
-                </span>
-              </p>
-            </div>
-          </div>
-          <p class="control">
-            <button class="button is-link" type="submit">Poizvedi</button>
-          </p>
-        </div>
-      </form>
-    </div>
   </div>
   <hr>
   % end
-  <hr>
+</section>
 
+<section>
+  <div class="box">         
+  <form method="POST" action="/delovne-ure/poizvedba/">
+    <div class="field">
+      <label class="label">Povzetek ur za</label>
+      <div class="control is-expanded">
+        <div class="select">
+          <select name="ime_delavca">
+            % for delavec in delovna_sila:
+            <option>{{delavec.ime}}</option>
+            % end
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control is-expanded">
+        <label class="label">od vključno datuma</label>
+        <input class="input" type="date" name="datum_od">
+        <span class="icon is-small is-left">
+        </span>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control is-expanded">
+        <label class="label">do datuma (brez le-tega)</label>
+        <input class="input" type="date" name="datum_do">
+        <span class="icon is-small is-left">
+        </span>
+      </div>
+    </div>
+    <div class="control">
+      <button class="button is-link" type="submit">Poizvedi</button>
+    </div>
+  </form>
+  
+  % if povzetek:
+  <hr>
+  <article class="message is-link">
+    <div class="message-header">
+      <p>Rezultat poizvedbe</p>
+    </div>
+    <div class="message-body">
+      Delavec: <b>{{worker.ime}}</b> <br>
+      Obdobje: <b>{{od}}</b> do <b>{{do}}</b> <br>
+      Število ur na kmetiji: <b>{{povzetek[0]}}</b> <br>
+      Število ur v gozdu: <b>{{povzetek[1]}}</b>
+    </div>
+  </article>
+  % end
+  </div>  
+</section>
+<hr>
+
+<section>
   <div class="box">
     <form method="POST" action="/delovne-ure/dodaj/">
       <div class="field">
